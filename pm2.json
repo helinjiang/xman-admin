@@ -1,0 +1,16 @@
+{
+  "apps": [{
+    "name": "D:project-webstormD:project-webstormxman-admin",
+    "script": "www/production.js",
+    "cwd": "D:\project-webstorm\xman-admin",
+    "exec_mode": "cluster",
+    "instances": 0,
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}
