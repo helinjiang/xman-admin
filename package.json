@@ -1,5 +1,5 @@
 {
-  "name": "thinkjs-application",
+  "name": "xman-admin",
   "description": "application created by thinkjs",
   "version": "1.0.0",
   "scripts": {
@@ -9,10 +9,11 @@
     "watch": "npm run watch-compile"
   },
   "dependencies": {
-    "thinkjs": "2.2.x",
     "babel-runtime": "6.x.x",
+    "phpass": "^0.1.1",
     "source-map-support": "^0.4.0",
-    "speakeasy": "2.0.0"
+    "speakeasy": "^2.0.0",
+    "thinkjs": "2.2.x"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
@@ -22,6 +23,6 @@
     "babel-plugin-transform-runtime": "^6.7.5",
     "babel-core": "^6.7.7"
   },
-  "repository": "",
+  "repository": "https://github.com/helinjiang/xman-admin",
   "license": "MIT"
 }
