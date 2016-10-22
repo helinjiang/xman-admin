@@ -8,11 +8,13 @@ var instance = new thinkjs({
   RUNTIME_PATH: rootPath + path.sep + 'runtime',
   ROOT_PATH: rootPath,
   RESOURCE_PATH: __dirname,
+  UPLOAD_PATH: path.join(__dirname, 'static/upload'),
   env: 'development'
 });
 
 // Build code from src to app directory.
 instance.compile({
+  retainLines: false,
   log: true
 });
 
