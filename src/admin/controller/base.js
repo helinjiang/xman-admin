@@ -7,6 +7,7 @@ export default class extends think.controller.base {
    */
   async __before() {
     let http = this.http;
+    console.log('----------',http.controller,http.action);
 
     // 如果某些 action 不用进行处理，则在此直接 return; 即可。
     if (http.controller === 'user' && http.action === 'login') {
@@ -35,13 +36,14 @@ export default class extends think.controller.base {
    * @return {} []
    */
   async __call() {
+    console.log('--__call--');
     if (this.isAjax()) {
       return this.fail('ACTION_NOT_FOUND');
     }
 
     let model = this.model('options');
     let options = await model.getOptions();
-
+    
     //不显示具体的密钥
     options.two_factor_auth = !!options.two_factor_auth;
     options.analyze_code = escape(options.analyze_code);
