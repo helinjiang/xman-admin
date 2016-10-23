@@ -3,7 +3,6 @@ import React from 'react';
 
 import { decorate as mixin } from 'react-mixin';
 import { ListenerMixin } from 'reflux';
-import ModalActions from '../action/modal';
 
 import { Router } from 'react-router';
 

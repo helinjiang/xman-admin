@@ -29,6 +29,7 @@ export default class extends think.controller.base {
     if (!this.isAjax()) {
       this.assign('userInfo', {id: userInfo.id, name: userInfo.name, type: userInfo.type});
     }
+    console.log('--__before end--')
   }
 
   /**
