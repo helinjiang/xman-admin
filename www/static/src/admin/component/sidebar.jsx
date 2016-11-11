@@ -6,7 +6,8 @@ import classnames from 'classnames';
 export default class extends Base {
   state = {
     routes: [
-      {url: '/dashboard', icon: 'home', title:'概述'},
+      {url: '/index', icon: 'home', title:'Home'},
+      {url: '/dashboard', icon: 'home', title:'DashBoard'},
       {url: '/uidemo', icon: 'topic', title: 'UI DEMO', children: [
         {url: '/uidemo/main', title: 'TEST MAIN'}
       ]}

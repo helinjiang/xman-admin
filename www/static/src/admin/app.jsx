@@ -7,6 +7,7 @@ import {createHistory} from 'history';
 
 import App from './component/App';
 import Dashboard from './component/Dashboard';
+import Index from './component/page-index';
 
 import UIDemo from './component/ui-demo';
 import UIDemoMain from './component/ui-demo-main';
@@ -18,8 +19,9 @@ let history = useRouterHistory(createHistory)({
 
 ReactDOM.render((
     <Router history={history}>
-      <Redirect from="/" to="dashboard"/>
+      <Redirect from="/" to="index"/>
       <Route path="/" component={App}>
+        <Route path="index" component={Index}/>
         <Route path="dashboard" component={Dashboard}/>
         <Route path="uidemo" component={UIDemo}>
           <Redirect from="/" to="main" />
