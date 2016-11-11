@@ -7,7 +7,7 @@ export default class extends think.controller.base {
    */
   async __before() {
     let http = this.http;
-    console.log('----------',http.controller,http.action);
+    console.log('----------', http.controller, http.action);
 
     // 如果某些 action 不用进行处理，则在此直接 return; 即可。
     if (http.controller === 'user' && http.action === 'login') {
@@ -21,7 +21,7 @@ export default class extends think.controller.base {
         return this.fail('NOT_LOGIN');
       } else {
         // return this.redirect("/user/login");
-        console.log('--------------', userInfo);
+        // console.log('--------------', userInfo);
       }
     }
 
@@ -30,7 +30,7 @@ export default class extends think.controller.base {
     if (!this.isAjax()) {
       this.assign('userInfo', {id: userInfo.id, name: userInfo.name, type: userInfo.type});
     }
-    console.log('--__before end--', userInfo)
+    // console.log('--__before end--', userInfo)
   }
 
   /**
