@@ -62,7 +62,7 @@ export default class extends Base {
           </div>
         </div>
         <ul className="mod-bar" style={{marginTop: 10}}>
-          <input type="hidden" id="hide_values" val="0" />
+          <input type="hidden" id="hide_values" value="0" />
           {routes.map( (route, i) =>
             <li key={i}>
               {route.children ? <a onClick={this.open.bind(this, route.children && route.children[0].url || route.url)} className={this.getClassName(route.icon, route.url)}><span>{route.title}</span></a>
