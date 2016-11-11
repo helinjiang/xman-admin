@@ -6,7 +6,8 @@ import {Router, Route, Redirect, useRouterHistory} from 'react-router';
 import {createHistory} from 'history';
 
 import App from './component/App';
-import Dashboard from './component/Dashboard';
+import Dashboard from './component/page-dashboard';
+// import Dashboard from './component/Dashboard';
 import Index from './component/page-index';
 
 import UIDemo from './component/ui-demo';
