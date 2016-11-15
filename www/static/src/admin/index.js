@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
-import {Router, Route, IndexRedirect, useRouterHistory} from 'react-router';
+import {Router, Route, IndexRedirect, browserHistory, useRouterHistory} from 'react-router';
 
 import {createHistory} from 'history';
 
@@ -18,6 +18,8 @@ let history = useRouterHistory(createHistory)({
   basename: '/admin',
   queryKey: false
 });
+
+// let history = browserHistory;
 
 ReactDOM.render((
     <Router history={history}>

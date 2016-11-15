@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 
-import Login from './login';
+import Login from './page-login';
 import Sidebar from './sidebar';
 import Tip from 'common/component/tip';
 

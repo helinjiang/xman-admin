@@ -1,22 +1,29 @@
 import React from 'react';
-import Base from 'base';
+
 import {Link} from 'react-router';
 import classnames from 'classnames';
 
-export default class extends Base {
-  state = {
-    routes: [
-      {url: '/index', icon: 'home', title: 'Home'},
-      {url: '/dashboard', icon: 'home', title: 'DashBoard'},
-      {
-        url: '/uidemo', icon: 'topic', title: 'UI DEMO', children: [
-        {url: '/uidemo/index', title: 'TEST INDEX'},
-        {url: '/uidemo/test1', title: 'TEST TEST1'},
-        {url: '/uidemo/test2', title: 'TEST TEST2'},
+class Sidebar extends React.Component {
+
+  constructor(props, context) {
+    super(props, context);
+
+    console.log('==sidebar.js== constructor');
+
+    this.state = {
+      routes: [
+        {url: '/index', icon: 'home', title: 'Home'},
+        {url: '/dashboard', icon: 'home', title: 'DashBoard'},
+        {
+          url: '/uidemo', icon: 'topic', title: 'UI DEMO', children: [
+          {url: '/uidemo/index', title: 'TEST INDEX'},
+          {url: '/uidemo/test1', title: 'TEST TEST1'},
+          {url: '/uidemo/test2', title: 'TEST TEST2'},
+        ]
+        }
       ]
-      }
-    ]
-  };
+    }
+  }
 
   /**
    * 是否是高亮状态
@@ -102,3 +109,9 @@ export default class extends Base {
     );
   }
 }
+
+Sidebar.contextTypes = {
+  router: () => React.PropTypes.func.isRequired
+};
+
+export default Sidebar;
