@@ -2,7 +2,6 @@ import React, {PropTypes, Component} from 'react';
 
 import Login from './page-login';
 import Sidebar from './sidebar';
-import Tip from 'common/component/tip';
 
 class App extends Component {
   constructor(props, context) {
@@ -14,14 +13,12 @@ class App extends Component {
     if (!SysConfig.userInfo.name) {
       return (
         <div className="fk">
-          <Tip />
           <Login />
         </div>);
     }
     return (
       <div className="fk">
         <Sidebar />
-        <Tip />
         {this.props.children}
       </div>
     );
