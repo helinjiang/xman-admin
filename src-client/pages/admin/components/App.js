@@ -1,22 +1,28 @@
-import React from 'react'
-import { Link, browserHistory } from 'react-router'
+import React, {PropTypes, Component} from 'react';
 
-export default function App({ children }) {
-  return (
-    <div>
-      <header>
-        Links:
-        {' '}
-        <Link to="/">Home</Link>
-        {' '}
-        <Link to="/foo">Foo</Link>
-        {' '}
-        <Link to="/bar">Bar</Link>
-      </header>
-      <div>
-        <button onClick={() => browserHistory.push('/foo')}>Go to /foo</button>
+
+import Sidebar from './sidebar';
+
+class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+    console.log('==app.js== constructor');
+  }
+
+  render() {
+    if (!SysConfig.userInfo.name) {
+      return (
+        <div className="fk">
+          <h1>LOGIN PAGE</h1>
+        </div>);
+    }
+    return (
+      <div className="fk">
+        <Sidebar />
+        {this.props.children}
       </div>
-      <div style={{ marginTop: '1.5em' }}>{children}</div>
-    </div>
-  )
+    );
+  }
 }
+
+export default App;
