@@ -2,10 +2,11 @@ import path from 'path';
 import webpack from 'webpack';
 
 var base = path.join(__dirname, 'www/static');
+
 export default {
   devtool: 'source-map',
   entry: {
-    admin: `${base}/src/admin/app.jsx`,
+    admin: `${base}/src/admin/index.js`,
     vendor: [
       'md5',
       'react',
