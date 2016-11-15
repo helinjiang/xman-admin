@@ -22,8 +22,15 @@ export default class extends think.controller.base {
       } else {
         // return this.redirect("/user/login");
         // console.log('--------------', userInfo);
+        // TODO 测试代码
+        userInfo = {
+          id: 1,
+          name: 'hhh',
+          type: 1
+        };
       }
     }
+    console.log('test userInfo', userInfo);
 
     // 将 userInfo 赋值到模版中可用
     this.userInfo = userInfo;
@@ -67,7 +74,7 @@ export default class extends think.controller.base {
   // }
 
   async displayAdminPage() {
-    console.log('--__call--');
+    console.log('--displayAdminPage--');
     if (this.isAjax()) {
       return this.fail('ACTION_NOT_FOUND');
     }
