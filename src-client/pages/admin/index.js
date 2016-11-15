@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
+
 import 'babel-polyfill';
 
 import {createHistory} from 'history';
-
-import {Router, Route, IndexRoute, browserHistory, useRouterHistory} from 'react-router'
-
+import {Router, Route, IndexRoute, useRouterHistory} from 'react-router'
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
-import store from './store';
-import {DevTools} from './store';
-import {App, Home, Foo, Bar} from './components'
+
+import store, {DevTools} from './store';
+
+import {App, Home, Foo, Bar} from './components';
 
 // 使用 history 组件来扩展，变更路由的相对根目录
 // 如果不需要，则直接使用 react-router 中的 browserHistory 即可
@@ -19,6 +19,7 @@ let browserHistoryByCreate = useRouterHistory(createHistory)({
   queryKey: false
 });
 
+// 使用 react-router-redux 中的 syncHistoryWithStore 方法来连接 react-router 和 redux
 const history = syncHistoryWithStore(browserHistoryByCreate, store);
 
 ReactDOM.render(
