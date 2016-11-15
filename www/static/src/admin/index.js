@@ -19,8 +19,6 @@ let history = useRouterHistory(createHistory)({
   queryKey: false
 });
 
-console.log('--2--');
-
 ReactDOM.render((
     <Router history={history}>
       <Route path="/" component={App}>

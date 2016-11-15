@@ -1,22 +1,22 @@
-import React from 'react';
-import Base from 'base';
+import React, {PropTypes, Component} from 'react';
+
 import Login from './login';
 import Sidebar from './sidebar';
 import Tip from 'common/component/tip';
 
-
-export default class App extends Base {
-  state = {
-
-  };
+class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+    console.log('==app.js== constructor');
+  }
 
   render() {
-    if(!SysConfig.userInfo.name){
+    if (!SysConfig.userInfo.name) {
       return (
-      <div className="fk">
-        <Tip />
-        <Login />
-      </div>);
+        <div className="fk">
+          <Tip />
+          <Login />
+        </div>);
     }
     return (
       <div className="fk">
@@ -27,3 +27,5 @@ export default class App extends Base {
     );
   }
 }
+
+export default App;

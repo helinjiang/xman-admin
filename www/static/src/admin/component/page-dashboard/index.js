@@ -1,7 +1,11 @@
-import React from 'react';
-import Base from 'base';
+import React, {PropTypes, Component} from 'react';
 
-export default class extends Base {
+class PageDashboard extends Component {
+  constructor(props, context) {
+    super(props, context);
+    console.log('==page-dashboard.js== constructor');
+  }
+
   render() {
     return (
       <div className="fk-content-wrap">
@@ -10,3 +14,5 @@ export default class extends Base {
     );
   }
 }
+
+export default PageDashboard;

@@ -1,10 +1,16 @@
-import React from 'react';
-import Base from 'base';
+import React, {PropTypes, Component} from 'react';
 
-export default class extends Base {
+class PageUIDemoIndex extends Component {
+  constructor(props, context) {
+    super(props, context);
+    console.log('==page-ui-demo-index.js== constructor');
+  }
+
   render() {
     return (
       <div className="fk-content-wrap">hello ui-demo/index</div>
     )
   }
 }
+
+export default  PageUIDemoIndex;
