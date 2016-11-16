@@ -1,5 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 
+import {Button} from 'antd';
+
 class PageTestIndex extends Component {
   constructor(props, context) {
     super(props, context);
@@ -8,7 +10,10 @@ class PageTestIndex extends Component {
 
   render() {
     return (
-      <div className="fk-content-wrap">hello test/ant.design</div>
+      <div className="fk-content-wrap">
+        <h2>hello test/ant.design</h2>
+        <Button>Hello world!</Button>
+      </div>
     )
   }
 }
