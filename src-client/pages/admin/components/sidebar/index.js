@@ -15,10 +15,9 @@ class Sidebar extends React.Component {
         {url: '/index', icon: 'home', title: 'Home'},
         {url: '/dashboard', icon: 'home', title: 'DashBoard'},
         {
-          url: '/uidemo', icon: 'topic', title: 'UI DEMO', children: [
-          {url: '/uidemo/index', title: 'TEST INDEX'},
-          {url: '/uidemo/test1', title: 'TEST TEST1'},
-          {url: '/uidemo/test2', title: 'TEST TEST2'},
+          url: '/test', icon: 'topic', title: 'TEST专用', children: [
+          {url: '/test/index', title: 'TEST INDEX'},
+          {url: '/test/counter', title: 'TEST COUNTER'}
         ]
         }
       ]
