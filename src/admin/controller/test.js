@@ -5,7 +5,7 @@ import Base from './base.js';
 export default class extends Base {
   /**
    * index action
-   * 对应的URL： admin/test/index，测试经典的计数器
+   * 对应的URL： admin/test/index，首页
    *
    * @return {Promise} []
    */
@@ -20,6 +20,16 @@ export default class extends Base {
    * @return {Promise} []
    */
   counterAction(){
+    return this.displayAdminPage();
+  }
+
+  /**
+   * antDesign action
+   * 对应的URL： admin/test/ant_design，测试Ant.Design
+   *
+   * @return {Promise} []
+   */
+  antDesignAction(){
     return this.displayAdminPage();
   }
 }

@@ -17,7 +17,8 @@ class Sidebar extends React.Component {
         {
           url: '/test', icon: 'topic', title: 'TEST专用', children: [
           {url: '/test/index', title: 'TEST INDEX'},
-          {url: '/test/counter', title: 'TEST COUNTER'}
+          {url: '/test/counter', title: 'TEST COUNTER'},
+          {url: '/test/ant_design', title: 'TEST Ant.Design'},
         ]
         }
       ]
