@@ -27,8 +27,9 @@ class PageIndex extends Component {
       <div className="fk-content-wrap">
         <h2>HELLO, index</h2>
         <div>
-          Some state changes1:
+          Some state changes:
           {number}
+          <br/><br/><br/>
           <button onClick={this.handleIncreaseClick}>Increase</button>
           <button onClick={this.handleDecreaseClick}>Decrease</button>
         </div>
@@ -41,17 +42,23 @@ const mapStateToProps = (state) => ({
   number: state.count.number
 });
 
-//将action的所有方法绑定到props上
-const mapDispatchToProps = (dispatch) => ({
-  increase: bindActionCreators(increase, dispatch),
-  decrease: bindActionCreators(decrease, dispatch),
-});
+//将action的所有方法绑定到props上，注意这下面的两种写法是等价的
+// const mapDispatchToProps = (dispatch) => ({
+//   increase: bindActionCreators(increase, dispatch),
+//   decrease: (n) => {
+//     dispatch(decrease(n));
+//   },
+// });
+
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({increase, decrease}, dispatch);
+// };
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({increase, decrease}, dispatch);
+
+// const mapDispatchToProps = {increase, decrease};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageIndex);
-
-// 或者直接传递 actionCreator
-// export default connect(mapStateToProps, {increase, decrease})(PageIndex);
-
 
 // let actions = {
 //   addItem: (text) => {
