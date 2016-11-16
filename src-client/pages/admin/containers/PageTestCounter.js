@@ -30,11 +30,17 @@ class PageTestCounter extends Component {
 
     return (
       <div className="fk-content-wrap">
-        <h2>HELLO, index</h2>
+        <h2>使用 Redux 实现计数器</h2>
+        <p>参考：</p>
+        <ul>
+          <li>https://github.com/reactjs/redux/tree/master/examples/counter</li>
+          <li>https://github.com/reactjs/react-router-redux/tree/master/examples/basic</li>
+        </ul>
+
+        <hr/>
+
         <div>
-          Some state changes:
-          {number}
-          <br/><br/><br/>
+          Some state changes: {number}
           <button onClick={this.handleIncreaseClick}>Increase</button>
           <button onClick={this.handleDecreaseClick}>Decrease</button>
         </div>
