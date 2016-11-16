@@ -3,7 +3,7 @@ import React, {PropTypes, Component} from 'react';
 class PageDashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log('==page-dashboard.js== constructor');
+    console.log('==PageDashboard.js== constructor');
   }
 
   render() {

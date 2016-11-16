@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 
-
-import Sidebar from './sidebar';
+import Sidebar from '../components/sidebar';
 
 class App extends Component {
   constructor(props, context) {
@@ -10,12 +9,6 @@ class App extends Component {
   }
 
   render() {
-    if (!SysConfig.userInfo.name) {
-      return (
-        <div className="fk">
-          <h1>LOGIN PAGE</h1>
-        </div>);
-    }
     return (
       <div className="fk">
         <Sidebar />
