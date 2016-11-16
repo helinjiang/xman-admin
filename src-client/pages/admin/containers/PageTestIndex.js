@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 
-class PageUIDemoIndex extends Component {
+class PageTestIndex extends Component {
   constructor(props, context) {
     super(props, context);
     console.log('==test/index.js== constructor');
@@ -13,4 +13,4 @@ class PageUIDemoIndex extends Component {
   }
 }
 
-export default  PageUIDemoIndex;
+export default  PageTestIndex;

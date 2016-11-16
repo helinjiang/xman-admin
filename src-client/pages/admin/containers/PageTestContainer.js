@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 
-class PageUIDemo extends Component {
+class PageTestContainer extends Component {
   constructor(props, context) {
     super(props, context);
     console.log('==test container== constructor');
@@ -13,4 +13,4 @@ class PageUIDemo extends Component {
   }
 }
 
-export default PageUIDemo;
+export default PageTestContainer;
