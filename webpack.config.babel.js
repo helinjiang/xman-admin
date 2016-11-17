@@ -41,7 +41,10 @@ export default {
         cacheDirectory: true,
         query: {
           presets: ['react', 'es2015-loose', 'stage-0'],
-          plugins: ['transform-runtime', 'transform-decorators-legacy']
+          plugins: ['transform-runtime', 'transform-decorators-legacy', ["import", [{
+            "libraryName": "antd",
+            "style": "css"
+          }]]]
         },
         exclude: /node_modules/
       },
