@@ -6,29 +6,36 @@ import LayoutHeader from '../components/layout-header';
 import LayoutBreadcrumb from '../components/layout-breadcrumb';
 import LayoutFooter from '../components/layout-footer';
 
-import {collapseSidebar, unCollapseSidebar} from '../actions/sidebar'
-import {sidebarMenuConfig} from '../routes'
+import {collapseSidebar, unCollapseSidebar, loadMenu} from '../actions/sidebar'
 
 class App extends Component {
 
   static propTypes = {
+    menuData: PropTypes.object.isRequired,
+    menuArr: PropTypes.array.isRequired,
     collapse: PropTypes.bool.isRequired,
     collapseSidebar: PropTypes.func.isRequired,
-    unCollapseSidebar: PropTypes.func.isRequired
+    unCollapseSidebar: PropTypes.func.isRequired,
+    loadMenu: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
   }
 
+  componentDidMount() {
+    this.props.loadMenu();
+  }
+
   render() {
-    const {collapse} = this.props;
+    const {menuData, menuArr, collapse} = this.props;
 
     return (
       <div className={"ant-layout-aside " + (collapse ? "ant-layout-aside-collapse" : "")}>
 
         <LayoutSidebar
-          menuData={sidebarMenuConfig}
+          menuData={menuData}
+          menuArr={menuArr}
           collapse={collapse}
           collapseSidebar={this.props.collapseSidebar}
           unCollapseSidebar={this.props.unCollapseSidebar}/>
@@ -54,9 +61,11 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  collapse: state.sidebar.collapse
+  collapse: state.sidebar.collapse,
+  menuData: state.sidebar.menuData,
+  menuArr: state.sidebar.menuArr,
 });
 
-const mapDispatchToProps = {collapseSidebar, unCollapseSidebar};
+const mapDispatchToProps = {collapseSidebar, unCollapseSidebar, loadMenu};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

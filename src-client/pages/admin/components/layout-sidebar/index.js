@@ -10,7 +10,8 @@ import {Menu, Icon} from 'antd';
 class Sidebar extends Component {
 
   static propTypes = {
-    menuData: PropTypes.array.isRequired,
+    menuData: PropTypes.object.isRequired,
+    menuArr: PropTypes.array.isRequired,
     collapse: PropTypes.bool.isRequired,
     collapseSidebar: PropTypes.func.isRequired,
     unCollapseSidebar: PropTypes.func.isRequired
@@ -23,34 +24,7 @@ class Sidebar extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {
-      routeMap: {}
-    };
-
     this.handleCollapseClick = this.handleCollapseClick.bind(this);
-  }
-
-  componentDidMount() {
-    const {menuData} = this.props, map = {};
-
-    const _getMenu = (menuObj) => {
-      if (menuObj.children) {
-        menuObj.children.forEach((item) => {
-          item.parent = menuObj;
-          _getMenu(item);
-        });
-      } else {
-        map[menuObj.url] = menuObj;
-      }
-    };
-
-    menuData.forEach((item) => {
-      _getMenu(item);
-    });
-
-    this.setState({
-      routeMap: map
-    });
   }
 
   /**
@@ -59,7 +33,7 @@ class Sidebar extends Component {
    * @return {Boolean}          [description]
    */
   isActive(routeUrl) {
-    console.log('==', routeUrl);
+    console.log('=isActive=', routeUrl);
     return this.context.router.isActive(routeUrl);
   }
 
@@ -72,12 +46,7 @@ class Sidebar extends Component {
     })
   }
 
-  // getSubUlClassName(routeUrl){
-  //   if(this.isActive(routeUrl)){
-  //     return 'block';
-  //   }
-  //   return 'hide';
-  // }
+
   getSubLinkClassName(routeUrl) {
     return classnames({
       active: this.isActive(routeUrl)
@@ -126,14 +95,13 @@ class Sidebar extends Component {
     return arr;
   }
 
-  getDefaultSelectedKeys() {
-    let routeMap = this.state.routeMap,
+  getSelectedKeys() {
+    let menuArr = this.props.menuArr,
       arr = [];
 
-    Object.keys(routeMap).forEach((key) => {
-      let cur = routeMap[key];
-      if (this.isActive(cur.url)) {
-        arr.push(cur.id);
+    menuArr.forEach((curMenu) => {
+      if (this.isActive(curMenu.url)) {
+        arr.push(curMenu.id);
       }
     });
 
@@ -156,7 +124,7 @@ class Sidebar extends Component {
           }
         </Menu.SubMenu>
       )
-    } else {
+    } else if(!menuObj.hide) {
       return (
         <Menu.Item key={menuObj.id}>
           <Icon type={menuObj.icon}/>
@@ -170,10 +138,10 @@ class Sidebar extends Component {
 
   render() {
     const {collapse, menuData} = this.props,
-      isShowMenu = menuData && menuData.length,
-      defaultSelectedKeys = this.getDefaultSelectedKeys(menuData),
+      isShowMenu = menuData && Object.keys(menuData).length,
+      selectedKeys = this.getSelectedKeys(),
       defaultOpenKeys = this.getDefaultOpenKeys();
-console.log('defaultSelectedKeys', defaultSelectedKeys);
+console.log('selectedKeys', selectedKeys);
     return (
       <aside className="ant-layout-sider">
 
@@ -182,7 +150,7 @@ console.log('defaultSelectedKeys', defaultSelectedKeys);
         {
           isShowMenu ? (
             <Menu mode="inline" theme="dark"
-                  selectedKeys={defaultSelectedKeys}
+                  selectedKeys={selectedKeys}
                   defaultOpenKeys={defaultOpenKeys}>
               {
                 menuData.map((item) => {
