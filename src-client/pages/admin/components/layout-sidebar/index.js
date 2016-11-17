@@ -10,6 +10,7 @@ import {Menu, Icon} from 'antd';
 class Sidebar extends Component {
 
   static propTypes = {
+    menuData: PropTypes.array.isRequired,
     collapse: PropTypes.bool.isRequired,
     collapseSidebar: PropTypes.func.isRequired,
     unCollapseSidebar: PropTypes.func.isRequired
@@ -67,29 +68,49 @@ class Sidebar extends Component {
     }
   }
 
+  getRenderMenuItem(menuObj) {
+    if (menuObj.children) {
+      return (
+        <Menu.SubMenu key={menuObj.id} title={<span><Icon type={menuObj.icon}/>{menuObj.title}</span>}>
+          {
+            menuObj.children.map((item) => {
+              return this.getRenderMenuItem(item)
+            })
+          }
+        </Menu.SubMenu>
+      )
+    } else {
+      return (
+        <Menu.Item key={menuObj.id}>
+          <Icon type={menuObj.icon}/>
+          <span className="nav-text">
+            <Link to={menuObj.url}> {menuObj.title} </Link>
+          </span>
+        </Menu.Item>
+      )
+    }
+  }
+
   render() {
-    const {collapse} = this.props;
+    const {collapse, menuData} = this.props,
+      isShowMenu = menuData && menuData.length;
 
     return (
       <aside className="ant-layout-sider">
         <div className="ant-layout-logo"></div>
-        <Menu mode="inline" theme="dark" defaultSelectedKeys={['user']}>
-          <Menu.Item key="user">
-            <Icon type="user"/><span className="nav-text">导航一</span>
-          </Menu.Item>
-          <Menu.Item key="setting">
-            <Icon type="setting"/><span className="nav-text">导航二</span>
-          </Menu.Item>
-          <Menu.Item key="laptop">
-            <Icon type="laptop"/><span className="nav-text">导航三</span>
-          </Menu.Item>
-          <Menu.Item key="notification">
-            <Icon type="notification"/><span className="nav-text">导航四</span>
-          </Menu.Item>
-          <Menu.Item key="folder">
-            <Icon type="folder"/><span className="nav-text">导航五</span>
-          </Menu.Item>
-        </Menu>
+
+        {
+          isShowMenu ? (
+            <Menu mode="inline" theme="dark" defaultSelectedKeys={['user']}>
+              {
+                menuData.map((item) => {
+                  return this.getRenderMenuItem(item)
+                })
+              }
+            </Menu>
+          ) : null
+        }
+
         <div className="ant-aside-action" onClick={this.handleCollapseClick}>
           {collapse ? <Icon type="right"/> : <Icon type="left"/>}
         </div>

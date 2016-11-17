@@ -7,6 +7,7 @@ import LayoutBreadcrumb from '../components/layout-breadcrumb';
 import LayoutFooter from '../components/layout-footer';
 
 import {collapseSidebar, unCollapseSidebar} from '../actions/sidebar'
+import {sidebarMenuConfig} from '../routes'
 
 class App extends Component {
 
@@ -27,6 +28,7 @@ class App extends Component {
       <div className={"ant-layout-aside " + (collapse ? "ant-layout-aside-collapse" : "")}>
 
         <LayoutSidebar
+          menuData={sidebarMenuConfig}
           collapse={collapse}
           collapseSidebar={this.props.collapseSidebar}
           unCollapseSidebar={this.props.unCollapseSidebar}/>

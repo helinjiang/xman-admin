@@ -14,3 +14,4 @@ React 的 UI 库，我比较喜欢蚂蚁金服的 Ant.Design ，是否适合做�
 src-client 目录下的pages貌似定义不是那么清除，考虑换下架构
 导航结构变更，选择左侧导航栏，可搜索（阿里云的导航系统就是这样的）
 使用Less
+Link 中使用 `this.context.router.push(routeUrl);` 和直接使用 `to` 属性的区别在哪？为什么firekylin中要同时写呢？

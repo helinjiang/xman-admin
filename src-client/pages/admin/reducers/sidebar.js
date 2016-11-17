@@ -1,7 +1,7 @@
 import {SIDEBAR_COLLAPSE, SIDEBAR_NO_COLLAPSE} from '../actions/sidebar'
 
 const initialState = {
-  collapse: true
+  collapse: false
 };
 
 export default function update(state = initialState, action) {
