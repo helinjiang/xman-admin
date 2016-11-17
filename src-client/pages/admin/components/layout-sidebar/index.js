@@ -23,7 +23,34 @@ class Sidebar extends Component {
   constructor(props, context) {
     super(props, context);
 
+    this.state = {
+      routeMap: {}
+    };
+
     this.handleCollapseClick = this.handleCollapseClick.bind(this);
+  }
+
+  componentDidMount() {
+    const {menuData} = this.props, map = {};
+
+    const _getMenu = (menuObj) => {
+      if (menuObj.children) {
+        menuObj.children.forEach((item) => {
+          item.parent = menuObj;
+          _getMenu(item);
+        });
+      } else {
+        map[menuObj.url] = menuObj;
+      }
+    };
+
+    menuData.forEach((item) => {
+      _getMenu(item);
+    });
+
+    this.setState({
+      routeMap: map
+    });
   }
 
   /**
@@ -32,6 +59,7 @@ class Sidebar extends Component {
    * @return {Boolean}          [description]
    */
   isActive(routeUrl) {
+    console.log('==', routeUrl);
     return this.context.router.isActive(routeUrl);
   }
 
@@ -68,6 +96,55 @@ class Sidebar extends Component {
     }
   }
 
+  getDefaultSelectedKeys2(menuData) {
+    let routeMap = {},
+      arr = [];
+
+    const _getMenu = (menuObj) => {
+      if (menuObj.children) {
+        menuObj.children.forEach((item) => {
+          item.parent = menuObj;
+          _getMenu(item);
+        });
+      } else {
+        routeMap[menuObj.url] = menuObj;
+      }
+    };
+
+    menuData.forEach((item) => {
+      _getMenu(item);
+    });
+
+    Object.keys(routeMap).forEach((key) => {
+      let cur = routeMap[key];
+      if (this.isActive(cur.url)) {
+        arr.push(cur.id);
+      }
+    });
+
+    console.log('---------------2', arr);
+    return arr;
+  }
+
+  getDefaultSelectedKeys() {
+    let routeMap = this.state.routeMap,
+      arr = [];
+
+    Object.keys(routeMap).forEach((key) => {
+      let cur = routeMap[key];
+      if (this.isActive(cur.url)) {
+        arr.push(cur.id);
+      }
+    });
+
+    console.log('---------------', arr);
+    return arr;
+  }
+
+  getDefaultOpenKeys() {
+    return [];
+  }
+
   getRenderMenuItem(menuObj) {
     if (menuObj.children) {
       return (
@@ -84,7 +161,7 @@ class Sidebar extends Component {
         <Menu.Item key={menuObj.id}>
           <Icon type={menuObj.icon}/>
           <span className="nav-text">
-            <Link to={menuObj.url}> {menuObj.title} </Link>
+            <Link to={menuObj.url}> {menuObj.title} {this.isActive(menuObj.url)}</Link>
           </span>
         </Menu.Item>
       )
@@ -93,15 +170,20 @@ class Sidebar extends Component {
 
   render() {
     const {collapse, menuData} = this.props,
-      isShowMenu = menuData && menuData.length;
-
+      isShowMenu = menuData && menuData.length,
+      defaultSelectedKeys = this.getDefaultSelectedKeys(menuData),
+      defaultOpenKeys = this.getDefaultOpenKeys();
+console.log('defaultSelectedKeys', defaultSelectedKeys);
     return (
       <aside className="ant-layout-sider">
+
         <div className="ant-layout-logo"></div>
 
         {
           isShowMenu ? (
-            <Menu mode="inline" theme="dark" defaultSelectedKeys={['user']}>
+            <Menu mode="inline" theme="dark"
+                  selectedKeys={defaultSelectedKeys}
+                  defaultOpenKeys={defaultOpenKeys}>
               {
                 menuData.map((item) => {
                   return this.getRenderMenuItem(item)
@@ -114,6 +196,7 @@ class Sidebar extends Component {
         <div className="ant-aside-action" onClick={this.handleCollapseClick}>
           {collapse ? <Icon type="right"/> : <Icon type="left"/>}
         </div>
+
       </aside>
     );
   }
