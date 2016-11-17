@@ -10,7 +10,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="fk">
+      <div className="xman-container">
         <Sidebar />
         {this.props.children}
       </div>
