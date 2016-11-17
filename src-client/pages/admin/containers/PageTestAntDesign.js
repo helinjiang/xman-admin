@@ -10,7 +10,7 @@ class PageTestIndex extends Component {
 
   render() {
     return (
-      <div className="fk-content-wrap">
+      <div className="page-test-ant_design-content">
         <h2>hello test/ant.design</h2>
         <Button>Hello world!</Button>
       </div>

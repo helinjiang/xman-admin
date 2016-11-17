@@ -22,10 +22,9 @@ class App extends Component {
 
   render() {
     const {collapse} = this.props;
-    console.log('=====collapse======', collapse);
 
     return (
-      <div className={collapse ? "ant-layout-aside ant-layout-aside-collapse" : "ant-layout-aside"}>
+      <div className={"ant-layout-aside " + (collapse ? "ant-layout-aside-collapse" : "")}>
 
         <LayoutSidebar
           collapse={collapse}

@@ -8,7 +8,9 @@ class PageTestIndex extends Component {
 
   render() {
     return (
-      <div className="fk-content-wrap">hello test/index</div>
+      <div className="page-test-index-content">
+        <h2>hello test/index</h2>
+      </div>
     )
   }
 }

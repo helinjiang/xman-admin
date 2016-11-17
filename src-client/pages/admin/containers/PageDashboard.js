@@ -8,8 +8,8 @@ class PageDashboard extends Component {
 
   render() {
     return (
-      <div className="fk-content-wrap">
-        <h2>HELLO, dashboard new</h2>
+      <div className="page-dashboard-content">
+        <h2>HELLO, dashboard</h2>
       </div>
     );
   }

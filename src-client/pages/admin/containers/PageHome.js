@@ -8,7 +8,7 @@ class PageHome extends Component {
   render() {
     return (
       <div className="page-home-content">
-        <h2>HELLO, index</h2>
+        <h2>HELLO, home</h2>
       </div>
     );
   }

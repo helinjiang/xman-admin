@@ -29,7 +29,7 @@ class PageTestCounter extends Component {
     let {number} = this.props;
 
     return (
-      <div className="fk-content-wrap">
+      <div className="page-test-counter-content">
         <h2>使用 Redux 实现计数器</h2>
         <p>参考：</p>
         <ul>
