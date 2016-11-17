@@ -1,17 +1,18 @@
+import './index.css';
+
 import React, {Component} from 'react';
 
-class PageHome extends Component {
+class Sidebar extends Component {
+
   constructor(props, context) {
     super(props, context);
   }
 
   render() {
     return (
-      <div className="page-home-content">
-        <h2>HELLO, index</h2>
-      </div>
+      <div className="ant-layout-header"></div>
     );
   }
 }
 
-export default PageHome;
+export default Sidebar;

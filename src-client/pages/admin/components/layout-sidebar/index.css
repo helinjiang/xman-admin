@@ -124,6 +124,7 @@
 .ant-layout-aside .ant-layout-content {
     background: #fff;
     padding: 24px;
+    min-height: 288px;
 }
 
 .ant-layout-aside .ant-layout-footer {

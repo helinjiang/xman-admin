@@ -1,21 +1,61 @@
 import React, {PropTypes, Component} from 'react';
+import {connect} from 'react-redux'
 
-import Sidebar from '../components/sidebar';
+import LayoutSidebar from '../components/layout-sidebar';
+import LayoutHeader from '../components/layout-header';
+import LayoutBreadcrumb from '../components/layout-breadcrumb';
+import LayoutFooter from '../components/layout-footer';
+
+import {collapseSidebar, unCollapseSidebar} from '../actions/sidebar'
 
 class App extends Component {
+
+  static propTypes = {
+    collapse: PropTypes.bool.isRequired,
+    collapseSidebar: PropTypes.func.isRequired,
+    unCollapseSidebar: PropTypes.func.isRequired
+  };
+
   constructor(props, context) {
     super(props, context);
-    console.log('==app.js== constructor');
   }
 
   render() {
+    const {collapse} = this.props;
+    console.log('=====collapse======', collapse);
+
     return (
-      <div className="xman-container">
-        <Sidebar />
-        {this.props.children}
+      <div className={collapse ? "ant-layout-aside ant-layout-aside-collapse" : "ant-layout-aside"}>
+
+        <LayoutSidebar
+          collapse={collapse}
+          collapseSidebar={this.props.collapseSidebar}
+          unCollapseSidebar={this.props.unCollapseSidebar}/>
+
+        <div className="ant-layout-main">
+
+          <LayoutHeader/>
+
+          <LayoutBreadcrumb/>
+
+          <div className="ant-layout-container">
+            <div className="ant-layout-content">
+              {this.props.children}
+            </div>
+          </div>
+
+          <LayoutFooter/>
+
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  collapse: state.sidebar.collapse
+});
+
+const mapDispatchToProps = {collapseSidebar, unCollapseSidebar};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
