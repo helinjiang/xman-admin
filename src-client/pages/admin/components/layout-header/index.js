@@ -1,4 +1,4 @@
-import './index.css';
+import './index.less';
 
 import React, {Component} from 'react';
 
@@ -10,7 +10,7 @@ class LayoutHeader extends Component {
 
   render() {
     return (
-      <div className="ant-layout-header"></div>
+      <div className="layout-header"></div>
     );
   }
 }

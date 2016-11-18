@@ -1,4 +1,4 @@
-import './index.css';
+import './index.less';
 
 import React, {Component} from 'react';
 
@@ -12,7 +12,7 @@ class LayoutBreadcrumb extends Component {
 
   render() {
     return (
-      <div className="ant-layout-breadcrumb">
+      <div className="layout-breadcrumb">
         <Breadcrumb>
           <Breadcrumb.Item>首页</Breadcrumb.Item>
           <Breadcrumb.Item>应用列表</Breadcrumb.Item>

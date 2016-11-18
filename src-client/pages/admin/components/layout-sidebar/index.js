@@ -1,4 +1,4 @@
-import './index.css';
+import './index.less';
 
 import React, {PropTypes, Component} from 'react';
 
@@ -168,9 +168,9 @@ class LayoutSidebar extends Component {
       isShowMenu = needInitMenu && menuData && Object.keys(menuData).length;
 
     return (
-      <aside className="ant-layout-sider">
+      <aside className="layout-siderbar">
 
-        <div className="ant-layout-logo"></div>
+        <div className="siderbar-logo"></div>
 
         {
           isShowMenu ? (
@@ -187,7 +187,7 @@ class LayoutSidebar extends Component {
           ) : null
         }
 
-        <div className="ant-aside-action" onClick={this.handleCollapseClick}>
+        <div className="sidebar-action" onClick={this.handleCollapseClick}>
           {collapse ? <Icon type="right"/> : <Icon type="left"/>}
         </div>
 

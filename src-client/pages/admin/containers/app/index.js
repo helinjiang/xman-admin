@@ -1,14 +1,16 @@
+import './index.less';
+
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux'
 
 import classnames from 'classnames';
 
-import LayoutSidebar from '../components/layout-sidebar';
-import LayoutHeader from '../components/layout-header';
-import LayoutBreadcrumb from '../components/layout-breadcrumb';
-import LayoutFooter from '../components/layout-footer';
+import LayoutSidebar from '../../components/layout-sidebar';
+import LayoutHeader from '../../components/layout-header';
+import LayoutBreadcrumb from '../../components/layout-breadcrumb';
+import LayoutFooter from '../../components/layout-footer';
 
-import {collapseSidebar, unCollapseSidebar, loadMenu} from '../actions/sidebar'
+import {collapseSidebar, unCollapseSidebar, loadMenu} from '../../actions/sidebar'
 
 class App extends Component {
 
@@ -33,8 +35,8 @@ class App extends Component {
 
     return (
       <div className={classnames({
-        'ant-layout-aside': true,
-        'ant-layout-aside-collapse': collapse
+        'xman-layout': true,
+        'xman-layout-collapse': collapse
       })}>
 
         <LayoutSidebar
@@ -44,14 +46,14 @@ class App extends Component {
           collapseSidebar={this.props.collapseSidebar}
           unCollapseSidebar={this.props.unCollapseSidebar}/>
 
-        <div className="ant-layout-main">
+        <div className="layout-main">
 
           <LayoutHeader/>
 
           <LayoutBreadcrumb/>
 
-          <div className="ant-layout-container">
-            <div className="ant-layout-content">
+          <div className="layout-container">
+            <div className="layout-content">
               {this.props.children}
             </div>
           </div>

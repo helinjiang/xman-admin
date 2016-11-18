@@ -60,6 +60,8 @@
     "babel-preset-stage-1": "^6.5.0",
     "brace": "^0.8.0",
     "css-loader": "^0.23.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "md5": "^2.0.0",
     "qrcode-react": "^0.1.10",
     "rc-select": "^5.10.0",

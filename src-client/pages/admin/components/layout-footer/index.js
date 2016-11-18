@@ -1,4 +1,4 @@
-import './index.css';
+import './index.less';
 
 import React, {Component} from 'react';
 
@@ -10,7 +10,7 @@ class LayoutFooter extends Component {
 
   render() {
     return (
-      <div className="ant-layout-footer">
+      <div className="layout-footer">
         XMAN-ADMIN 版权所有
       </div>
     );
