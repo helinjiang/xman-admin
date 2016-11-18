@@ -7,7 +7,7 @@ import classnames from 'classnames';
 
 import {Menu, Icon} from 'antd';
 
-class Sidebar extends Component {
+class LayoutSidebar extends Component {
 
   static propTypes = {
     menuData: PropTypes.object.isRequired,
@@ -170,4 +170,4 @@ console.log('selectedKeys', selectedKeys);
   }
 }
 
-export default Sidebar;
+export default LayoutSidebar;

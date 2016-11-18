@@ -2,7 +2,7 @@ import './index.css';
 
 import React, {Component} from 'react';
 
-class Sidebar extends Component {
+class LayoutFooter extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -17,4 +17,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default LayoutFooter;

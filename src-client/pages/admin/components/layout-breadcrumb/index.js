@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 
 import {Breadcrumb} from 'antd';
 
-class Sidebar extends Component {
+class LayoutBreadcrumb extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -23,4 +23,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default LayoutBreadcrumb;
