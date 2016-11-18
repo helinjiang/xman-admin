@@ -21,9 +21,8 @@ class App extends Component {
 
   constructor(props, context) {
     super(props, context);
-  }
 
-  componentDidMount() {
+    // 加载菜单信息
     this.props.loadMenu();
   }
 

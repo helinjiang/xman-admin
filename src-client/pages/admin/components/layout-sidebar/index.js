@@ -24,49 +24,55 @@ class LayoutSidebar extends Component {
   constructor(props, context) {
     super(props, context);
 
+    this.state = {
+      defaultSelectedKeys: [],
+      defaultOpenKeys: [],
+      needInitMenu: false
+    };
+
     this.handleCollapseClick = this.handleCollapseClick.bind(this);
+    this.handleSelectMenu = this.handleSelectMenu.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let {menuDataMap} = nextProps;
+
+    // 关于菜单初始化，只需要一次即可
+    if (!this.state.needInitMenu && Object.keys(menuDataMap).length) {
+      let defaultSelectedKeys = this.getDefaultSelectedKeys(menuDataMap),
+        defaultOpenKeys = this.getDefaultOpenKeys(menuDataMap, defaultSelectedKeys);
+
+      this.setState({
+        defaultSelectedKeys: defaultSelectedKeys,
+        defaultOpenKeys: defaultOpenKeys,
+        needInitMenu: true
+      })
+    }
   }
 
   /**
-   * 是否是高亮状态
-   * @param  {[type]}  routeUrl [description]
-   * @return {Boolean}          [description]
+   * 判断路由是否是激活状态
+   * @param {String} routeUrl 路由地址
    */
   isActive(routeUrl) {
-    console.log('=isActive=', routeUrl);
     return this.context.router.isActive(routeUrl);
   }
 
-  getClassName(icon, routeUrl) {
-    let active = this.isActive(routeUrl);
-    return classnames({
-      icon: true,
-      [`icon-${icon}`]: true,
-      active: active
-    })
-  }
-
-  getSubLinkClassName(routeUrl) {
-    return classnames({
-      active: this.isActive(routeUrl)
-    })
-  }
-
+  /**
+   * 打开指定路由
+   * @param {String} routeUrl 路由地址
+   */
   open(routeUrl) {
     this.context.router.push(routeUrl);
   }
 
-  handleCollapseClick() {
-    if (this.props.collapse) {
-      this.props.unCollapseSidebar();
-    } else {
-      this.props.collapseSidebar();
-    }
-  }
-
-  getDefaultSelectedKeys() {
-    let menuDataMap = this.props.menuDataMap,
-      arr = [];
+  /**
+   * 获取菜单中默认选中的菜单对应的id数组
+   * @param {Object} menuDataMap <id,menuOBJ>键值对
+   * @return {Array}
+   */
+  getDefaultSelectedKeys(menuDataMap) {
+    let arr = [];
 
     Object.keys(menuDataMap).forEach((id) => {
       let curMenu = menuDataMap[id];
@@ -78,9 +84,14 @@ class LayoutSidebar extends Component {
     return arr;
   }
 
-  getDefaultOpenKeys(selectedKeys) {
-    let menuDataMap = this.props.menuDataMap,
-      arr = [];
+  /**
+   * 获取菜单中默认展开的菜单对应的id数组
+   * @param {Object} menuDataMap <id,menuOBJ>键值对
+   * @param {Array} selectedKeys 当前选中的菜单对应的id数组
+   * @return {Array}
+   */
+  getDefaultOpenKeys(menuDataMap, selectedKeys) {
+    let arr = [];
 
     const _getKeys = (id) => {
       let curItem = menuDataMap[id];
@@ -101,6 +112,38 @@ class LayoutSidebar extends Component {
     return arr;
   }
 
+  /**
+   * 处理菜单被选中时的事件
+   *
+   * https://ant.design/components/menu/
+   *
+   * @param {{ item:Object, key:String, selectedKeys:Array }} data 数据
+   */
+  handleSelectMenu(data) {
+    let {menuDataMap} = this.props,
+      selectedMenu = menuDataMap[data.key];
+
+    if (selectedMenu && selectedMenu.url) {
+      this.open(selectedMenu.url);
+    }
+  }
+
+  /**
+   * 处理菜单收起来或展开点击事件
+   */
+  handleCollapseClick() {
+    if (this.props.collapse) {
+      this.props.unCollapseSidebar();
+    } else {
+      this.props.collapseSidebar();
+    }
+  }
+
+  /**
+   * 渲染菜单
+   * @param {Object} menuObj
+   * @return {XML}
+   */
   getRenderMenuItem(menuObj) {
     if (menuObj.children) {
       return (
@@ -116,9 +159,7 @@ class LayoutSidebar extends Component {
       return (
         <Menu.Item key={menuObj.id}>
           <Icon type={menuObj.icon}/>
-          <span className="nav-text">
-            <Link to={menuObj.url}> {menuObj.title}</Link>
-          </span>
+          <span className="nav-text">{menuObj.title}</span>
         </Menu.Item>
       )
     }
@@ -126,9 +167,8 @@ class LayoutSidebar extends Component {
 
   render() {
     const {collapse, menuData} = this.props,
-      isShowMenu = menuData && Object.keys(menuData).length,
-      defaultSelectedKeys = this.getDefaultSelectedKeys(),
-      defaultOpenKeys = this.getDefaultOpenKeys(defaultSelectedKeys);
+      {defaultSelectedKeys, defaultOpenKeys, needInitMenu} = this.state,
+      isShowMenu = needInitMenu && menuData && Object.keys(menuData).length;
 
     return (
       <aside className="ant-layout-sider">
@@ -139,7 +179,8 @@ class LayoutSidebar extends Component {
           isShowMenu ? (
             <Menu mode="inline" theme="dark"
                   defaultSelectedKeys={defaultSelectedKeys}
-                  defaultOpenKeys={defaultOpenKeys}>
+                  defaultOpenKeys={defaultOpenKeys}
+                  onSelect={this.handleSelectMenu}>
               {
                 menuData.children.map((item) => {
                   return this.getRenderMenuItem(item)

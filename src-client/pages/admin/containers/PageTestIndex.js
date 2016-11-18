@@ -3,7 +3,6 @@ import React, {PropTypes, Component} from 'react';
 class PageTestIndex extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log('==test/index.js== constructor');
   }
 
   render() {

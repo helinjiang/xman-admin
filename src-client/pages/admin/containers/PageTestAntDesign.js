@@ -5,7 +5,6 @@ import {Button} from 'antd';
 class PageTestIndex extends Component {
   constructor(props, context) {
     super(props, context);
-    console.log('==test/ant.design== constructor');
   }
 
   render() {
