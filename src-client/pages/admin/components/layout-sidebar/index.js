@@ -2,9 +2,6 @@ import './index.css';
 
 import React, {PropTypes, Component} from 'react';
 
-import {Link} from 'react-router';
-import classnames from 'classnames';
-
 import {Menu, Icon} from 'antd';
 
 class LayoutSidebar extends Component {

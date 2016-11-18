@@ -1,6 +1,8 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux'
 
+import classnames from 'classnames';
+
 import LayoutSidebar from '../components/layout-sidebar';
 import LayoutHeader from '../components/layout-header';
 import LayoutBreadcrumb from '../components/layout-breadcrumb';
@@ -30,7 +32,10 @@ class App extends Component {
     const {menuData, menuDataMap, collapse} = this.props;
 
     return (
-      <div className={"ant-layout-aside " + (collapse ? "ant-layout-aside-collapse" : "")}>
+      <div className={classnames({
+        'ant-layout-aside': true,
+        'ant-layout-aside-collapse': collapse
+      })}>
 
         <LayoutSidebar
           menuData={menuData}
