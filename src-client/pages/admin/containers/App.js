@@ -12,7 +12,7 @@ class App extends Component {
 
   static propTypes = {
     menuData: PropTypes.object.isRequired,
-    menuArr: PropTypes.array.isRequired,
+    menuDataMap: PropTypes.object.isRequired,
     collapse: PropTypes.bool.isRequired,
     collapseSidebar: PropTypes.func.isRequired,
     unCollapseSidebar: PropTypes.func.isRequired,
@@ -28,14 +28,14 @@ class App extends Component {
   }
 
   render() {
-    const {menuData, menuArr, collapse} = this.props;
+    const {menuData, menuDataMap, collapse} = this.props;
 
     return (
       <div className={"ant-layout-aside " + (collapse ? "ant-layout-aside-collapse" : "")}>
 
         <LayoutSidebar
           menuData={menuData}
-          menuArr={menuArr}
+          menuDataMap={menuDataMap}
           collapse={collapse}
           collapseSidebar={this.props.collapseSidebar}
           unCollapseSidebar={this.props.unCollapseSidebar}/>
@@ -63,7 +63,7 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   collapse: state.sidebar.collapse,
   menuData: state.sidebar.menuData,
-  menuArr: state.sidebar.menuArr,
+  menuDataMap: state.sidebar.menuDataMap,
 });
 
 const mapDispatchToProps = {collapseSidebar, unCollapseSidebar, loadMenu};

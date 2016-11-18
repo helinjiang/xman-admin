@@ -11,7 +11,7 @@ class LayoutSidebar extends Component {
 
   static propTypes = {
     menuData: PropTypes.object.isRequired,
-    menuArr: PropTypes.array.isRequired,
+    menuDataMap: PropTypes.object.isRequired,
     collapse: PropTypes.bool.isRequired,
     collapseSidebar: PropTypes.func.isRequired,
     unCollapseSidebar: PropTypes.func.isRequired
@@ -46,7 +46,6 @@ class LayoutSidebar extends Component {
     })
   }
 
-
   getSubLinkClassName(routeUrl) {
     return classnames({
       active: this.isActive(routeUrl)
@@ -65,52 +64,41 @@ class LayoutSidebar extends Component {
     }
   }
 
-  getDefaultSelectedKeys2(menuData) {
-    let routeMap = {},
+  getDefaultSelectedKeys() {
+    let menuDataMap = this.props.menuDataMap,
       arr = [];
 
-    const _getMenu = (menuObj) => {
-      if (menuObj.children) {
-        menuObj.children.forEach((item) => {
-          item.parent = menuObj;
-          _getMenu(item);
-        });
-      } else {
-        routeMap[menuObj.url] = menuObj;
+    Object.keys(menuDataMap).forEach((id) => {
+      let curMenu = menuDataMap[id];
+      if (curMenu && this.isActive(curMenu.url)) {
+        arr.push(id);
+      }
+    });
+
+    return arr;
+  }
+
+  getDefaultOpenKeys(selectedKeys) {
+    let menuDataMap = this.props.menuDataMap,
+      arr = [];
+
+    const _getKeys = (id) => {
+      let curItem = menuDataMap[id];
+
+      if (curItem && curItem.parent && curItem.parent.id !== 'root') {
+        arr.push(curItem.parent.id);
+
+        if (curItem.parent.parent) {
+          _getKeys(curItem.parent.id);
+        }
       }
     };
 
-    menuData.forEach((item) => {
-      _getMenu(item);
+    selectedKeys.forEach((id) => {
+      _getKeys(id);
     });
 
-    Object.keys(routeMap).forEach((key) => {
-      let cur = routeMap[key];
-      if (this.isActive(cur.url)) {
-        arr.push(cur.id);
-      }
-    });
-
-    console.log('---------------2', arr);
     return arr;
-  }
-
-  getSelectedKeys() {
-    let menuArr = this.props.menuArr,
-      arr = [];
-
-    menuArr.forEach((curMenu) => {
-      if (this.isActive(curMenu.url)) {
-        arr.push(curMenu.id);
-      }
-    });
-
-    console.log('---------------', arr);
-    return arr;
-  }
-
-  getDefaultOpenKeys() {
-    return [];
   }
 
   getRenderMenuItem(menuObj) {
@@ -124,12 +112,12 @@ class LayoutSidebar extends Component {
           }
         </Menu.SubMenu>
       )
-    } else if(!menuObj.hide) {
+    } else if (!menuObj.hide) {
       return (
         <Menu.Item key={menuObj.id}>
           <Icon type={menuObj.icon}/>
           <span className="nav-text">
-            <Link to={menuObj.url}> {menuObj.title} {this.isActive(menuObj.url)}</Link>
+            <Link to={menuObj.url}> {menuObj.title}</Link>
           </span>
         </Menu.Item>
       )
@@ -139,9 +127,9 @@ class LayoutSidebar extends Component {
   render() {
     const {collapse, menuData} = this.props,
       isShowMenu = menuData && Object.keys(menuData).length,
-      selectedKeys = this.getSelectedKeys(),
-      defaultOpenKeys = this.getDefaultOpenKeys();
-console.log('selectedKeys', selectedKeys);
+      defaultSelectedKeys = this.getDefaultSelectedKeys(),
+      defaultOpenKeys = this.getDefaultOpenKeys(defaultSelectedKeys);
+
     return (
       <aside className="ant-layout-sider">
 
@@ -150,10 +138,10 @@ console.log('selectedKeys', selectedKeys);
         {
           isShowMenu ? (
             <Menu mode="inline" theme="dark"
-                  selectedKeys={selectedKeys}
+                  defaultSelectedKeys={defaultSelectedKeys}
                   defaultOpenKeys={defaultOpenKeys}>
               {
-                menuData.map((item) => {
+                menuData.children.map((item) => {
                   return this.getRenderMenuItem(item)
                 })
               }

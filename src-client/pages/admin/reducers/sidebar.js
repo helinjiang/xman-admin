@@ -3,7 +3,7 @@ import {SIDEBAR_COLLAPSE, SIDEBAR_NO_COLLAPSE, LOAD_MENU_SUCCESS} from '../actio
 const initialState = {
   collapse: false,
   menuData: {},
-  menuArr: []
+  menuDataMap: {}
 };
 
 export default function update(state = initialState, action) {
@@ -19,24 +19,28 @@ export default function update(state = initialState, action) {
     case LOAD_MENU_SUCCESS:
       return Object.assign({}, state, {
         menuData: action.data,
-        menuArr: changToArray(action.data)
+        menuDataMap: changeToMap(action.data)
       });
     default:
       return state;
   }
 }
 
-function changToArray(data) {
-  const _getMenu = (curItem, arr = []) => {
+function changeToMap(data) {
+  let map = {};
+
+  const _getMenu = (curItem) => {
     if (curItem.children) {
       curItem.children.forEach((childItem) => {
         childItem.parent = curItem;
-        _getMenu(childItem, arr);
+        _getMenu(childItem);
       });
     } else if (!curItem.hide) {
-      arr.push(curItem);
+      map[curItem.id] = curItem;
     }
   };
 
-  return _getMenu(data);
+  _getMenu(data);
+
+  return map;
 }

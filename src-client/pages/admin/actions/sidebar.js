@@ -16,7 +16,7 @@ export function unCollapseSidebar() {
 
 export function loadMenu() {
   return {
-    type: SIDEBAR_NO_COLLAPSE,
+    type: LOAD_MENU_SUCCESS,
     data: {
       id: 'root',
       hide: true,

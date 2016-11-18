@@ -15,3 +15,5 @@ src-client 目录下的pages貌似定义不是那么清除，考虑换下架构
 导航结构变更，选择左侧导航栏，可搜索（阿里云的导航系统就是这样的）
 使用Less
 Link 中使用 `this.context.router.push(routeUrl);` 和直接使用 `to` 属性的区别在哪？为什么firekylin中要同时写呢？【一个是程序代码里面使用，一个是Link中使用】
+
+Link要block，否则点击区域太小了，且Menu组件选中状态会导致让用户误会
