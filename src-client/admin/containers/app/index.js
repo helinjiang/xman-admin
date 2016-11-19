@@ -10,6 +10,8 @@ import LayoutHeader from '../../components/layout-header';
 import LayoutBreadcrumb from '../../components/layout-breadcrumb';
 import LayoutFooter from '../../components/layout-footer';
 
+import PageLogin from '../../pages/login';
+
 class App extends Component {
 
   static propTypes = {
@@ -21,12 +23,18 @@ class App extends Component {
   }
 
   render() {
-    const {collapse} = this.props;
+    // 如果没有登录的话，则直接渲染登录界面出来
+    if (!window.SysConfig.userInfo.name) {
+      return (
+        <div className="xman-login">
+          <PageLogin/>
+        </div>);
+    }
 
     return (
       <div className={classnames({
         'xman-layout': true,
-        'collapse': collapse
+        'collapse': this.props.collapse
       })}>
 
         <LayoutSidebar/>
