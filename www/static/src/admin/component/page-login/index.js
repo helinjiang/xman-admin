@@ -1,32 +1,40 @@
-import React from 'react';
-import Base from 'base';
+import React, {PropTypes, Component} from 'react';
 import md5 from 'md5';
 
-import { Form, ValidatedInput } from 'react-bootstrap-validation';
+import {Form, ValidatedInput} from 'react-bootstrap-validation';
 
-import UserAction from '../action/user';
-import UserStore from '../store/user';
+import UserAction from '../../action/user';
+import UserStore from '../../store/user';
 
 import TipAction from 'common/action/tip';
 
-export default class extends Base {
-  componentDidMount(){
+class PageLogin extends Component {
+  constructor(props, context) {
+    super(props, context);
+    console.log('==page-login.js== constructor');
+  }
+
+  componentDidMount() {
     this.listenTo(UserStore, this.handleTrigger.bind(this));
   }
-  handleTrigger(data, type){
-    switch(type){
+
+  handleTrigger(data, type) {
+    switch (type) {
       case 'LoginSuccess':
         TipAction.success('登录成功');
-        setTimeout(() => {location.reload()}, 1000)
+        setTimeout(() => {
+          location.reload()
+        }, 1000)
         break;
     }
   }
+
   /**
    * get two factor auth
    * @return {} []
    */
-  getTwoFactorAuth(){
-    if(SysConfig.options.two_factor_auth){
+  getTwoFactorAuth() {
+    if (SysConfig.options.two_factor_auth) {
       return (
         <div className="form-group">
           <ValidatedInput
@@ -45,26 +53,29 @@ export default class extends Base {
       );
     }
   }
-  handleValidSubmit(values){
+
+  handleValidSubmit(values) {
     values.password = md5(SysConfig.options.password_salt + values.password);
     UserAction.login(values);
   }
-  handleInvalidSubmit(){
+
+  handleInvalidSubmit() {
 
   }
+
   render() {
     return (
       <div className="container">
         <div className="row">
-            <div className="login">
-              <h1 className="text-center">
+          <div className="login">
+            <h1 className="text-center">
               <a href="/">{SysConfig.options.title}</a>
-              </h1>
-              <Form
+            </h1>
+            <Form
               className="clearfix"
               onValidSubmit={this.handleValidSubmit.bind(this)}
               onInvalidSubmit={this.handleInvalidSubmit.bind(this)}
-              >
+            >
               <div className="form-group">
                 <ValidatedInput
                   type="text"
@@ -96,9 +107,11 @@ export default class extends Base {
               {this.getTwoFactorAuth()}
               <button type="submit" className="btn btn-primary btn-lg btn-block">登录</button>
             </Form>
-            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+export default PageLogin;

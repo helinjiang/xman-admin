@@ -7,8 +7,9 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  // indexAction(){
-  //   //auto render template file index_index.html
-  //   return this.display();
-  // }
+  indexAction() {
+    //auto render template file index_index.html
+    console.log('-index indexAction-');
+    return this.displayAdminPage();
+  }
 }

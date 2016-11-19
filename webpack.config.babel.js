@@ -1,11 +1,16 @@
 import path from 'path';
 import webpack from 'webpack';
 
-var base = path.join(__dirname, 'www/static');
+// 源代码的根目录
+let srcRootPath = path.join(__dirname, 'src-client');
+
+// 编译后的根目录
+let distRootPath = path.join(__dirname, 'www/static');
+
 export default {
   devtool: 'source-map',
   entry: {
-    admin: `${base}/src/admin/app.jsx`,
+    admin: `${srcRootPath}/pages/admin/index.js`,
     vendor: [
       'md5',
       'react',
@@ -19,15 +24,13 @@ export default {
     ]
   },
   output: {
-    path: `${base}/js`,
+    path: `${distRootPath}/js`,
     filename: '[name].bundle.js'
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      admin: `${base}/src/admin`,
-      common: `${base}/src/common`,
-      base: `${base}/src/common/component/base`
+      common: `${srcRootPath}/assets`
     }
   },
   module: {
@@ -38,14 +41,21 @@ export default {
         cacheDirectory: true,
         query: {
           presets: ['react', 'es2015-loose', 'stage-0'],
-          plugins: ['transform-runtime', 'transform-decorators-legacy']
+          plugins: ['transform-runtime', 'transform-decorators-legacy', ["import", [{
+            "libraryName": "antd",
+            "style": "css"
+          }]]]
         },
         exclude: /node_modules/
       },
       {
         test: /\.css?$/,
         loader: 'style!css'
-      }
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
+      },
     ]
   },
   plugins: [

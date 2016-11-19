@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
-import {Router, Route, Redirect, useRouterHistory} from 'react-router';
 
+import {Router, Route, IndexRedirect, useRouterHistory} from 'react-router';
 import {createHistory} from 'history';
 
 import App from './component/App';
@@ -21,15 +21,15 @@ let history = useRouterHistory(createHistory)({
 
 ReactDOM.render((
     <Router history={history}>
-      <Redirect from="/" to="index"/>
       <Route path="/" component={App}>
+        <IndexRedirect to="/index" />
         <Route path="index" component={Index}/>
         <Route path="dashboard" component={Dashboard}/>
         <Route path="uidemo" component={UIDemo}>
-          <Redirect from="/" to="index" />
+          <IndexRedirect to="/index" />
           <Route path="index" component={UIDemoIndex} />
-          <Route path="test1" component={UIDemoTest1} />
-          <Route path="test2" component={UIDemoTest2} />
+          <Route path="test1" component={UIDemoTest1}/>
+          <Route path="test2" component={UIDemoTest2}/>
         </Route>
       </Route>
     </Router>
