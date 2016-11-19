@@ -1,127 +1,115 @@
-import { Schema, arrayOf, normalize } from 'normalizr'
-import { camelizeKeys } from 'humps'
+import $ from 'jquery';
 
-// Extracts the next page URL from Github API response.
-const getNextPageUrl = response => {
-  const link = response.headers.get('link')
-  if (!link) {
-    return null
+const API_ROOT = '/admin';
+const STATUS = 'storeStatus';
+
+export const CALL_API = 'Call API';
+
+export default store => next => action => {
+  /**
+   * opts 字段说明：
+   *  url: CGI请求地址
+   *  types: action的type值数组，按顺序依次代表: requestType, successType, failureType
+   *  type: ajax的类型，get或者post
+   *  data: 请求的参数对象
+   *
+   * @type {{url:String, types:String[], type:String, data:Object}}
+   */
+  const opts = action[CALL_API];
+
+  if (typeof opts === 'undefined') {
+    return next(action);
   }
 
-  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
-  if (!nextLink) {
-    return null
+  // 二次处理请求的opts中的参数
+  const {url, type} = opts,
+    [requestType, successType, failureType] = opts.types;
+
+  opts.type = type ? type : 'GET';
+  opts.url = ~url.indexOf(API_ROOT) ? url : API_ROOT + url;
+
+  /**
+   * 触发action
+   * @param {Object} _action
+   * @returns {*}
+   */
+  function actionWith(_action) {
+    _action = Object.assign(action, _action);
+
+    //'wait' 'fetching' 'success' 'fail'
+    let obj = {
+      [STATUS]: 'fetching'
+    };
+
+    switch (_action.type) {
+      case successType:
+        obj[STATUS] = 'success';
+        break;
+      case failureType:
+        obj[STATUS] = 'fail';
+    }
+
+    if (obj[STATUS] !== 'fetching') {
+      _action.data = Object.assign(_action.data || {}, obj);
+    } else {
+      _action.data = {};
+    }
+
+    const finalAction = _action;
+
+    delete finalAction[CALL_API];
+
+    return finalAction;
   }
 
-  return nextLink.split(';')[0].slice(1, -1)
-}
+  // 在请求发送之前，首先会触发 request 的action，表示要发送请求了
+  let data = Object.assign({}, opts.data);
 
-const API_ROOT = 'https://api.github.com/'
+  next(actionWith({
+    type: requestType,
+    data,
+  }));
 
-// Fetches an API response and normalizes the result JSON according to schema.
-// This makes every API response have the same shape, regardless of how nested it was.
-const callApi = (endpoint, schema) => {
-  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+  // 发送 ajax 请求
+  $.ajax({
+    method: opts.type,
+    url: opts.url,
+    data: opts.data
+  })
+    .done((data) => {
+      let finalAction = actionWith({
+        type: successType,
+        data: data.data || data || {}
+      });
 
-  return fetch(fullUrl)
-    .then(response =>
-      response.json().then(json => {
-        if (!response.ok) {
-          return Promise.reject(json)
+      next(finalAction);
+
+      if(typeof opts._onSuccess === 'function'){
+        opts._onSuccess(data.data || data || {}, next);
+      }
+
+      return finalAction;
+    })
+    .fail((data) => {
+      // ios8下面 stack会存在
+      if (data && data.stack && !data.errno) {
+        // error
+        setTimeout(function () {
+          throw data;
+        }, 0);
+      } else {
+        let finalAction = actionWith({
+          type: failureType,
+          error: data
+        });
+
+        next(finalAction);
+
+        if(typeof opts._onFail === 'function'){
+          opts._onFail(data, next);
         }
 
-        const camelizedJson = camelizeKeys(json)
-        const nextPageUrl = getNextPageUrl(response)
-
-        return Object.assign({},
-          normalize(camelizedJson, schema),
-          { nextPageUrl }
-        )
-      })
-    )
-}
-
-// We use this Normalizr schemas to transform API responses from a nested form
-// to a flat form where repos and users are placed in `entities`, and nested
-// JSON objects are replaced with their IDs. This is very convenient for
-// consumption by reducers, because we can easily build a normalized tree
-// and keep it updated as we fetch more data.
-
-// Read more about Normalizr: https://github.com/paularmstrong/normalizr
-
-// GitHub's API may return results with uppercase letters while the query
-// doesn't contain any. For example, "someuser" could result in "SomeUser"
-// leading to a frozen UI as it wouldn't find "someuser" in the entities.
-// That's why we're forcing lower cases down there.
-
-const userSchema = new Schema('users', {
-  idAttribute: user => user.login.toLowerCase()
-})
-
-const repoSchema = new Schema('repos', {
-  idAttribute: repo => repo.fullName.toLowerCase()
-})
-
-repoSchema.define({
-  owner: userSchema
-})
-
-// Schemas for Github API responses.
-export const Schemas = {
-  USER: userSchema,
-  USER_ARRAY: arrayOf(userSchema),
-  REPO: repoSchema,
-  REPO_ARRAY: arrayOf(repoSchema)
-}
-
-// Action key that carries API call info interpreted by this Redux middleware.
-export const CALL_API = Symbol('Call API')
-
-// A Redux middleware that interprets actions with CALL_API info specified.
-// Performs the call and promises when such actions are dispatched.
-export default store => next => action => {
-  const callAPI = action[CALL_API]
-  if (typeof callAPI === 'undefined') {
-    return next(action)
-  }
-
-  let { endpoint } = callAPI
-  const { schema, types } = callAPI
-
-  if (typeof endpoint === 'function') {
-    endpoint = endpoint(store.getState())
-  }
-
-  if (typeof endpoint !== 'string') {
-    throw new Error('Specify a string endpoint URL.')
-  }
-  if (!schema) {
-    throw new Error('Specify one of the exported Schemas.')
-  }
-  if (!Array.isArray(types) || types.length !== 3) {
-    throw new Error('Expected an array of three action types.')
-  }
-  if (!types.every(type => typeof type === 'string')) {
-    throw new Error('Expected action types to be strings.')
-  }
-
-  const actionWith = data => {
-    const finalAction = Object.assign({}, action, data)
-    delete finalAction[CALL_API]
-    return finalAction
-  }
-
-  const [ requestType, successType, failureType ] = types
-  next(actionWith({ type: requestType }))
-
-  return callApi(endpoint, schema).then(
-    response => next(actionWith({
-      response,
-      type: successType
-    })),
-    error => next(actionWith({
-      type: failureType,
-      error: error.message || 'Something bad happened'
-    }))
-  )
+        return Promise.reject(finalAction);
+      }
+    });
 }

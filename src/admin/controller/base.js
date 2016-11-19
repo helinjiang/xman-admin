@@ -13,7 +13,7 @@ export default class extends think.controller.base {
     let http = this.http;
 
     // 如果某些 action 不用进行前置操作处理，则在此直接 return; 即可。
-    if (http.controller === 'user' && http.action === 'login') {
+    if (http.controller === 'login' && http.action === 'login') {
       return;
     }
 

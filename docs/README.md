@@ -22,6 +22,12 @@ Link要block，否则点击区域太小了，且Menu组件选中状态会导致�
 sidebar：非常之独立，只需要将其作为独立的container组件
 React的实践中提到区分container组件和纯组件，但这个也需要依据实际情况。高度抽象有高度抽象的好处，但会导致非常复杂。
 
+兼容性方面还未完整考虑，主要是：
+
+- jQuery
+- lodash
+- Object.assign
+
 ## 需求列表
 
 ### 目录结构变更

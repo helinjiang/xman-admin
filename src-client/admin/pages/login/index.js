@@ -1,9 +1,15 @@
 import './index.less'
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
+
+import $ from 'jquery';
+import _ from 'lodash';
 
 import {Form, Icon, Input, Button} from 'antd';
 const FormItem = Form.Item;
+
+import {loadLogin} from '../../actions/login'
 
 class PageLogin extends Component {
   constructor(props, context) {
@@ -12,12 +18,29 @@ class PageLogin extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    // let promise = new Promise(function(resolve, reject) {
+    //   console.log('Promise');
+    //   setTimeout(()=>{
+    //     resolve();
+    //   },3000)
+    //
+    // });
+    //
+    // promise.then(function() {
+    //   console.log('Resolved.');
+    // });
+    //
+    // console.log('Hi!', _.now());
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        this.props.loadLogin(values.userName, values.password);
       }
     });
   }
@@ -62,4 +85,11 @@ class PageLogin extends Component {
 
 PageLogin = Form.create({})(PageLogin);
 
-export default PageLogin;
+const mapStateToProps = (state) => ({
+  user: state.login.user
+});
+
+const mapDispatchToProps = {loadLogin};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);
+
