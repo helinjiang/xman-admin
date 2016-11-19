@@ -10,41 +10,26 @@ import LayoutHeader from '../../components/layout-header';
 import LayoutBreadcrumb from '../../components/layout-breadcrumb';
 import LayoutFooter from '../../components/layout-footer';
 
-import {collapseSidebar, unCollapseSidebar, loadMenu} from '../../actions/sidebar'
-
 class App extends Component {
 
   static propTypes = {
-    menuData: PropTypes.object.isRequired,
-    menuDataMap: PropTypes.object.isRequired,
-    collapse: PropTypes.bool.isRequired,
-    collapseSidebar: PropTypes.func.isRequired,
-    unCollapseSidebar: PropTypes.func.isRequired,
-    loadMenu: PropTypes.func.isRequired,
+    collapse: PropTypes.bool.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
-
-    // 加载菜单信息
-    this.props.loadMenu();
   }
 
   render() {
-    const {menuData, menuDataMap, collapse} = this.props;
+    const {collapse} = this.props;
 
     return (
       <div className={classnames({
         'xman-layout': true,
-        'xman-layout-collapse': collapse
+        'collapse': collapse
       })}>
 
-        <LayoutSidebar
-          menuData={menuData}
-          menuDataMap={menuDataMap}
-          collapse={collapse}
-          collapseSidebar={this.props.collapseSidebar}
-          unCollapseSidebar={this.props.unCollapseSidebar}/>
+        <LayoutSidebar/>
 
         <div className="layout-main">
 
@@ -67,11 +52,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  collapse: state.sidebar.collapse,
-  menuData: state.sidebar.menuData,
-  menuDataMap: state.sidebar.menuDataMap,
+  collapse: state.sidebar.collapse
 });
 
-const mapDispatchToProps = {collapseSidebar, unCollapseSidebar, loadMenu};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
