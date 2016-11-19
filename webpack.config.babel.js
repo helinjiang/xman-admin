@@ -27,6 +27,7 @@ export default {
     path: `${distRootPath}/js`,
     filename: '[name].bundle.js'
   },
+  externals: {jquery: "jQuery"},
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
