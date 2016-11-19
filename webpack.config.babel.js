@@ -10,7 +10,7 @@ let distRootPath = path.join(__dirname, 'www/static');
 export default {
   devtool: 'source-map',
   entry: {
-    admin: `${srcRootPath}/pages/admin/index.js`,
+    admin: `${srcRootPath}/admin/index.js`,
     vendor: [
       'md5',
       'react',
@@ -30,7 +30,8 @@ export default {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      common: `${srcRootPath}/assets`
+      common: `${srcRootPath}/common`,
+      admin: `${srcRootPath}/admin`
     }
   },
   module: {
