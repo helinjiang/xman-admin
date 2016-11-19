@@ -1,7 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import {connect} from 'react-redux'
 
-import {increase, decrease} from '../actions/count'
+import {increase, decrease} from '../../actions/count'
 
 class PageTestCounter extends Component {
   static propTypes = {

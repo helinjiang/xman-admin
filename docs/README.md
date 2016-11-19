@@ -17,3 +17,7 @@ src-client 目录下的pages貌似定义不是那么清除，考虑换下架构
 Link 中使用 `this.context.router.push(routeUrl);` 和直接使用 `to` 属性的区别在哪？为什么firekylin中要同时写呢？【一个是程序代码里面使用，一个是Link中使用】
 
 Link要block，否则点击区域太小了，且Menu组件选中状态会导致让用户误会。解决办法是使用Menu组件的onSelect时间回调中，手动执行 `this.context.router.push(routeUrl);` 来跳转，而不是使用 Link 组件
+
+
+sidebar：非常之独立，只需要将其作为独立的container组件
+React的实践中提到区分container组件和纯组件，但这个也需要依据实际情况。高度抽象有高度抽象的好处，但会导致非常复杂。

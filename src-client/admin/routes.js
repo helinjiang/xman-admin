@@ -2,13 +2,14 @@ import React from 'react';
 import {Route, IndexRedirect} from 'react-router'
 
 import App from './containers/app';
-import PageDashboard from './containers/PageDashboard';
-import PageHome from './containers/PageHome';
 
-import PageTestContainer from './containers/PageTestContainer';
-import PageTestIndex from './containers/PageTestIndex';
-import PageTestCounter from './containers/PageTestCounter';
-import PageTestAntDesign from './containers/PageTestAntDesign';
+import PageDashboard from './pages/dashboard';
+import PageHome from './pages/home';
+
+import PageTestContainer from './pages/test/container';
+import PageTestIndex from './pages/test';
+import PageTestCounter from './pages/test-counter';
+import PageTestAntDesign from './pages/test-ant_design';
 
 export default <Route path="/" component={App}>
   <IndexRedirect to="index"/>

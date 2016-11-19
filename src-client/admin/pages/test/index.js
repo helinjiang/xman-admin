@@ -8,7 +8,7 @@ class PageTestIndex extends Component {
   render() {
     return (
       <div className="page-test-index-content">
-        <h2>hello test/index</h2>
+        <h2>hello test/index2222222</h2>
       </div>
     )
   }
