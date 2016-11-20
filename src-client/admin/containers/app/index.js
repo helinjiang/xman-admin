@@ -24,45 +24,45 @@ class App extends Component {
   }
 
   render() {
-    // 如果没有登录的话，则直接渲染登录界面出来
-    if (!this.props.user.name) {
+    if (this.props.user.isLogin) {
+      return (
+        <div className={classnames({
+          'xman-layout': true,
+          'collapse': this.props.collapse
+        })}>
+
+          <LayoutSidebar/>
+
+          <div className="layout-main">
+
+            <LayoutHeader/>
+
+            <LayoutBreadcrumb/>
+
+            <div className="layout-container">
+              <div className="layout-content">
+                {this.props.children}
+              </div>
+            </div>
+
+            <LayoutFooter/>
+
+          </div>
+        </div>
+      );
+    } else {
       return (
         <div className="xman-login">
           <PageLogin/>
-        </div>);
-    }
-
-    return (
-      <div className={classnames({
-        'xman-layout': true,
-        'collapse': this.props.collapse
-      })}>
-
-        <LayoutSidebar/>
-
-        <div className="layout-main">
-
-          <LayoutHeader/>
-
-          <LayoutBreadcrumb/>
-
-          <div className="layout-container">
-            <div className="layout-content">
-              {this.props.children}
-            </div>
-          </div>
-
-          <LayoutFooter/>
-
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
 const mapStateToProps = (state) => ({
   collapse: state.sidebar.collapse,
-  user: state.login.user
+  user: state.user
 });
 
 export default connect(mapStateToProps)(App);

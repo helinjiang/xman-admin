@@ -71,12 +71,20 @@ export default store => next => action => {
   }));
 
   // 发送 ajax 请求
-  $.ajax({
-    method: opts.type,
-    url: opts.url,
-    data: opts.data
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      method: opts.type,
+      url: opts.url,
+      data: opts.data
+    })
+      .done((data) => {
+        resolve(data);
+      })
+      .fail((data) => {
+        reject(data);
+      });
   })
-    .done((data) => {
+    .then((data) => {
       let finalAction = actionWith({
         type: successType,
         data: data.data || data || {}
@@ -84,13 +92,13 @@ export default store => next => action => {
 
       next(finalAction);
 
-      if(typeof opts._onSuccess === 'function'){
+      if (typeof opts._onSuccess === 'function') {
         opts._onSuccess(data.data || data || {}, next);
       }
 
       return finalAction;
     })
-    .fail((data) => {
+    .catch((data) => {
       // ios8下面 stack会存在
       if (data && data.stack && !data.errno) {
         // error
@@ -105,11 +113,12 @@ export default store => next => action => {
 
         next(finalAction);
 
-        if(typeof opts._onFail === 'function'){
+        if (typeof opts._onFail === 'function') {
           opts._onFail(data, next);
         }
 
         return Promise.reject(finalAction);
       }
     });
+
 }

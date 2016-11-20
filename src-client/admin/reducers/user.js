@@ -1,7 +1,7 @@
 import {LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_FAIL} from '../actions/login'
 
 const initialState = {
-  user: {}
+  isLogin: false
 };
 
 export default function update(state = initialState, action) {
@@ -9,11 +9,11 @@ export default function update(state = initialState, action) {
     case LOGIN_REQUEST:
       return state;
     case LOGIN_REQUEST_SUCCESS:
-      return Object.assign({}, state, {
-        user: action.data
-      });
+      return Object.assign({}, state, action.data);
     case LOGIN_REQUEST_FAIL:
-      return state;
+      return Object.assign({}, state, {
+        isLogin: false
+      });
     default:
       return state;
   }

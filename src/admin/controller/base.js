@@ -27,14 +27,20 @@ export default class extends think.controller.base {
     // };
 
     // 如果session中不存在用户信息，且当前是 ajax 请求，则直接返回未登录结果即可
-    if (think.isEmpty(userInfo) && this.isAjax()) {
+    let isEmptyUser = think.isEmpty(userInfo);
+
+    if (isEmptyUser && this.isAjax()) {
       return this.fail('NOT_LOGIN');
+    }
+
+    if (!isEmptyUser) {
+      userInfo.isLogin = 1;
     }
 
     // 设置userInfo，且如果是非 ajax 请求，则将 userInfo 传递到模版中
     this.userInfo = userInfo;
     if (!this.isAjax()) {
-      this.assign('userInfo', {id: userInfo.id, name: userInfo.name, type: userInfo.type});
+      this.assign('userInfo', userInfo);
     }
   }
 

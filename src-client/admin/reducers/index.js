@@ -3,13 +3,13 @@ import {combineReducers} from 'redux';
 
 import count from './count';
 import sidebar from './sidebar';
-import login from './login';
+import user from './user';
 
 const rootReducer = combineReducers({
   count,
   sidebar,
   routing,
-  login
+  user
 });
 
 export default rootReducer

@@ -15,15 +15,21 @@ class PageLogin extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-
   handleSubmit(e) {
     e.preventDefault();
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        this.props.loadLogin(values.userName, values.password);
+
+        this.props.loadLogin(values.userName, values.password)
+          .then((data) => {
+            console.log('loadLogin then data', data)
+            // 这个时候reload页面
+          })
+          .catch((data) => {
+            console.log('loadLogin catch data', data)
+          });
       }
     });
   }
@@ -69,7 +75,7 @@ class PageLogin extends Component {
 PageLogin = Form.create({})(PageLogin);
 
 const mapStateToProps = (state) => ({
-  user: state.login.user
+  user: state.user
 });
 
 const mapDispatchToProps = {loadLogin};

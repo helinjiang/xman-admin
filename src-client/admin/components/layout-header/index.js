@@ -20,7 +20,7 @@ class LayoutHeader extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.login.user
+  user: state.user
 });
 
 export default connect(mapStateToProps)(LayoutHeader);
