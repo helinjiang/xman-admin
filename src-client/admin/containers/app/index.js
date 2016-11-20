@@ -15,7 +15,8 @@ import PageLogin from '../../pages/login';
 class App extends Component {
 
   static propTypes = {
-    collapse: PropTypes.bool.isRequired
+    collapse: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired
   };
 
   constructor(props, context) {
@@ -24,7 +25,7 @@ class App extends Component {
 
   render() {
     // 如果没有登录的话，则直接渲染登录界面出来
-    if (!window.SysConfig.userInfo.name) {
+    if (!this.props.user.name) {
       return (
         <div className="xman-login">
           <PageLogin/>
@@ -60,7 +61,8 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  collapse: state.sidebar.collapse
+  collapse: state.sidebar.collapse,
+  user: state.login.user
 });
 
 export default connect(mapStateToProps)(App);

@@ -20,11 +20,11 @@ export default class extends think.controller.base {
     // 从 session 中获得用户信息，登录鉴权
     let userInfo = await this.session('userInfo') || {};
 
-    userInfo = {
-      id: 1,
-      name: 'helinjiang',
-      type: 1
-    };
+    // userInfo = {
+    //   id: 1,
+    //   name: 'helinjiang',
+    //   type: 1
+    // };
 
     // 如果session中不存在用户信息，且当前是 ajax 请求，则直接返回未登录结果即可
     if (think.isEmpty(userInfo) && this.isAjax()) {
