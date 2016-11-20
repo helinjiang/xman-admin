@@ -13,7 +13,7 @@ import configureStore from './store/configureStore'
 // ===================================================================
 // 1. 创建 store
 // ===================================================================
-const store = configureStore();
+const store = configureStore(window.__initialState);
 
 // ===================================================================
 // 2. 创建 history

@@ -1,6 +1,7 @@
 import './index.less';
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
 
 class LayoutHeader extends Component {
 
@@ -10,9 +11,16 @@ class LayoutHeader extends Component {
 
   render() {
     return (
-      <div className="layout-header"></div>
+      <div className="layout-header">
+        <h2>欢迎 {this.props.user.name}</h2>
+        <a href="#">退出</a>
+      </div>
     );
   }
 }
 
-export default LayoutHeader;
+const mapStateToProps = (state) => ({
+  user: state.login.user
+});
+
+export default connect(mapStateToProps)(LayoutHeader);

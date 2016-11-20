@@ -64,5 +64,10 @@ React的实践中提到区分container组件和纯组件，但这个也需要依
 
 与此同时，提供退出登录的功能
 
+既然有了登录鉴权，还需要处理登录失败、登录跳转等情况
+
 ### 新增middleware/api.js
 新增一个api的中间件来处理请求。首期引入jQuery来处理ajax请求，后续再考虑其他的方式。
+
+### 新增全局tips提示
+全局提示基于 [Message](https://ant.design/components/message/) 组件来实现，用于展示一些全局的消息。

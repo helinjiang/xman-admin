@@ -3,9 +3,6 @@ import './index.less'
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
-import $ from 'jquery';
-import _ from 'lodash';
-
 import {Form, Icon, Input, Button} from 'antd';
 const FormItem = Form.Item;
 
@@ -18,21 +15,7 @@ class PageLogin extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // let promise = new Promise(function(resolve, reject) {
-    //   console.log('Promise');
-    //   setTimeout(()=>{
-    //     resolve();
-    //   },3000)
-    //
-    // });
-    //
-    // promise.then(function() {
-    //   console.log('Resolved.');
-    // });
-    //
-    // console.log('Hi!', _.now());
-  }
+
 
   handleSubmit(e) {
     e.preventDefault();
