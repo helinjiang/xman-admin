@@ -1,6 +1,6 @@
 import './index.less';
 
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
 import classnames from 'classnames';
@@ -14,17 +14,11 @@ import PageLogin from '../../pages/login';
 
 class App extends Component {
 
-  // static propTypes = {
-  //   collapse: PropTypes.bool.isRequired,
-  //   user: PropTypes.object.isRequired
-  // };
-
   constructor(props, context) {
     super(props, context);
   }
 
   render() {
-    console.log('=====appindex render======', this.props.user)
     if (this.props.user.isLogin) {
       return (
         <div className={classnames({
