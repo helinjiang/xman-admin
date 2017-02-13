@@ -17,3 +17,57 @@ src-client 目录下的pages貌似定义不是那么清除，考虑换下架构
 Link 中使用 `this.context.router.push(routeUrl);` 和直接使用 `to` 属性的区别在哪？为什么firekylin中要同时写呢？【一个是程序代码里面使用，一个是Link中使用】
 
 Link要block，否则点击区域太小了，且Menu组件选中状态会导致让用户误会。解决办法是使用Menu组件的onSelect时间回调中，手动执行 `this.context.router.push(routeUrl);` 来跳转，而不是使用 Link 组件
+
+
+sidebar：非常之独立，只需要将其作为独立的container组件
+React的实践中提到区分container组件和纯组件，但这个也需要依据实际情况。高度抽象有高度抽象的好处，但会导致非常复杂。
+
+兼容性方面还未完整考虑，主要是：
+
+- jQuery
+- lodash
+- Object.assign
+
+## 需求列表
+
+### 目录结构变更
+修改之后，目录结构和view及src的目录结构保持一致：
+
+- src
+  - admin
+  - common
+  - home
+- src-client
+  - admin
+    - actions
+    - components
+    - containers
+    - pages
+    - reducers
+    - store
+    - index.js
+    - index.less
+    - routes.js
+  - common
+    - actions
+    - assets
+    - components
+    - middleware
+    - reducers
+- view
+  - admin
+  - common
+  - home
+
+### 新增登录校验
+新增登录校验，使用打桩数据模拟登录。如果用户没有登录，则展示登录框进行登录之后才能够继续操作。
+
+与此同时，提供退出登录的功能
+
+既然有了登录鉴权，还需要处理登录失败、登录跳转等情况
+
+### 新增middleware/api.js
+新增一个api的中间件来处理请求。首期引入jQuery来处理ajax请求，后续再考虑其他的方式。
+
+### 新增全局tips提示
+全局提示基于 [Message](https://ant.design/components/message/) 组件来实现，用于展示一些全局的消息。
