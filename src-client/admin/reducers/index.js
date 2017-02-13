@@ -1,15 +1,15 @@
 import {routerReducer as routing} from 'react-router-redux';
 import {combineReducers} from 'redux';
 
-import count from './count';
 import sidebar from './sidebar';
 import user from './user';
+import count from '../pages/test-counter/reducers/count';
 
 const rootReducer = combineReducers({
-  count,
-  sidebar,
   routing,
-  user
+  user,
+  sidebar,
+  count,
 });
 
 export default rootReducer
