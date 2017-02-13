@@ -1,6 +1,6 @@
 import './index.less';
 
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
 import classnames from 'classnames';
@@ -13,11 +13,6 @@ import LayoutFooter from '../../components/layout-footer';
 import PageLogin from '../../pages/login';
 
 class App extends Component {
-
-  static propTypes = {
-    collapse: PropTypes.bool.isRequired,
-    user: PropTypes.object.isRequired
-  };
 
   constructor(props, context) {
     super(props, context);

@@ -13,7 +13,8 @@ export default class extends think.controller.base {
     let http = this.http;
 
     // 如果某些 action 不用进行前置操作处理，则在此直接 return; 即可。
-    if (http.controller === 'login' && http.action === 'login') {
+    // 例如登录操作
+    if (http.controller === 'user' && http.action === 'login') {
       return;
     }
 
@@ -42,6 +43,8 @@ export default class extends think.controller.base {
     if (!this.isAjax()) {
       this.assign('userInfo', userInfo);
     }
+
+    console.log('__before', userInfo);
   }
 
   /**

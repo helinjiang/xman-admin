@@ -11,13 +11,11 @@
 React 的 UI 库，我比较喜欢蚂蚁金服的 Ant.Design ，是否适合做后台管理系统，比较阿里也有比较多的业务在使用，会更专业。之前也考虑过 Bootstrap，后来还是放弃了，主要原因是前者提供了很多成熟应用场景的解决方案，更成熟；而后者很多需要自己去写，这比较费神。
 
 ## 备注
-src-client 目录下的pages貌似定义不是那么清除，考虑换下架构
-导航结构变更，选择左侧导航栏，可搜索（阿里云的导航系统就是这样的）
-使用Less
-Link 中使用 `this.context.router.push(routeUrl);` 和直接使用 `to` 属性的区别在哪？为什么firekylin中要同时写呢？【一个是程序代码里面使用，一个是Link中使用】
-
-Link要block，否则点击区域太小了，且Menu组件选中状态会导致让用户误会。解决办法是使用Menu组件的onSelect时间回调中，手动执行 `this.context.router.push(routeUrl);` 来跳转，而不是使用 Link 组件
-
+- src-client 目录下的pages貌似定义不是那么清除，考虑换下架构
+- 导航结构变更，选择左侧导航栏，可搜索（阿里云的导航系统就是这样的）
+- 使用Less
+- Link 中使用 `this.context.router.push(routeUrl);` 和直接使用 `to` 属性的区别在哪？为什么firekylin中要同时写呢？【一个是程序代码里面使用，一个是Link中使用】
+- Link要block，否则点击区域太小了，且Menu组件选中状态会导致让用户误会。解决办法是使用Menu组件的onSelect时间回调中，手动执行 `this.context.router.push(routeUrl);` 来跳转，而不是使用 Link 组件
 
 sidebar：非常之独立，只需要将其作为独立的container组件
 React的实践中提到区分container组件和纯组件，但这个也需要依据实际情况。高度抽象有高度抽象的好处，但会导致非常复杂。

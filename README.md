@@ -14,7 +14,11 @@ npm start
 ```
 
 首页地址：`http://localhost:8360/`。
-管理页面地址：`http://localhost:8360/admin`，登录的用户名为 `admin`
+管理页面地址：`http://localhost:8360/admin`，登录的用户名为 `admin`，密码为 `admin12345678`
+
+## docs
+
+其他文档请看 `docs` 目录。
 
 
 ## 备注

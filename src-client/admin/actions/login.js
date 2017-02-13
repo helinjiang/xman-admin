@@ -11,7 +11,7 @@ const fetchLogin = (userName, password) => ({
       LOGIN_REQUEST_SUCCESS,
       LOGIN_REQUEST_FAIL
     ],
-    url: `/login/login`,
+    url: `/user/login`,
     type: 'POST',
     data: {
       userName,

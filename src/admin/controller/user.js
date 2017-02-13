@@ -1,50 +1,40 @@
 'use strict';
 
 import Base from './base.js';
-import speakeasy from 'speakeasy';
 
 export default class extends Base {
+
+  /**
+   * index action
+   * @return {Promise} []
+   */
+  indexAction() {
+    return this.displayAdminPage();
+  }
+
   /**
    * login
-   * @return {} []
    */
-  async loginAction(){
-    //二步验证
-    let model = this.model('options');
-    let options = await model.getOptions();
+  async loginAction() {
+    let {userName, password} = this.post();
 
-    if(options.two_factor_auth){
-      let two_factor_auth = this.post('two_factor_auth');
-      let verified = speakeasy.totp.verify({
-        secret: options.two_factor_auth,
-        encoding: 'base32',
-        token: two_factor_auth,
-        window: 2
-      });
-
-      if(!verified){
-        return this.fail('TWO_FACTOR_AUTH_ERROR');
-      }
-    }
-
-    //校验帐号和密码
-    let username = this.post('username');
+    // 通过用户名获取用户信息
     let userModel = this.model('user');
-    let userInfo = await userModel.where({name: username}).find();
+    let userInfo = await userModel.where({name: userName}).find();
+    console.log('==', userInfo);
 
-    if(think.isEmpty(userInfo)){
+    // 校验是否存在这个用户信息
+    if (think.isEmpty(userInfo)) {
       return this.fail('ACCOUNT_ERROR');
     }
 
-    //帐号是否被禁用，且某些帐号类型不允许登录
-    if((userInfo.status | 0) !== 1 || userInfo.type === 3){
+    // 检测帐号是否被禁用
+    if ((userInfo.status | 0) !== 1) {
       return this.fail('ACCOUNT_FORBIDDEN');
     }
 
     //校验密码
-    let password = this.post('password');
-
-    if(!userModel.checkPassword(userInfo, password)){
+    if (!userModel.checkPassword(userInfo, password)) {
       return this.fail('ACCOUNT_ERROR');
     }
 
@@ -53,15 +43,16 @@ export default class extends Base {
 
     return this.success();
   }
+
   /**
    * logout
    * @return {}
    */
-  async logoutAction(){
+  async logoutAction() {
     // 退出登录，则清空 session
     await this.session('userInfo', '');
 
     // 强制跳转到首页
-    return this.redirect('/');
+    return this.redirect('/admin/');
   }
 }

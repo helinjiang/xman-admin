@@ -3,7 +3,7 @@ import './index.less'
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
-import {Form, Icon, Input, Button} from 'antd';
+import {message, Form, Icon, Input, Button} from 'antd';
 const FormItem = Form.Item;
 
 import {loadLogin} from '../../actions/login'
@@ -23,9 +23,23 @@ class PageLogin extends Component {
         console.log('Received values of form: ', values);
 
         this.props.loadLogin(values.userName, values.password)
-          .then((data) => {
-            console.log('loadLogin then data', data)
-            // 这个时候reload页面
+          .then((action) => {
+            console.log('loadLogin then data', action);
+            let data = action.data;
+
+            if (data.errno) {
+              // 错误，展示 data.errmsg
+              let msg = data.errmsg;
+
+              // 如果服务端校验失败，则返回的是对象，例如{userName:xxxx}
+              if (typeof msg === 'object') {
+                msg = JSON.stringify(msg);
+              }
+
+              message.error(msg);
+            } else {
+              message.success('登录成功！');
+            }
           })
           .catch((data) => {
             console.log('loadLogin catch data', data)
