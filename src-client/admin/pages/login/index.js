@@ -23,12 +23,20 @@ class PageLogin extends Component {
         console.log('Received values of form: ', values);
 
         this.props.loadLogin(values.userName, values.password)
-          .then((data) => {
-            console.log('loadLogin then data', data);
-            data = data.data;
+          .then((action) => {
+            console.log('loadLogin then data', action);
+            let data = action.data;
+
             if (data.errno) {
               // 错误，展示 data.errmsg
-              message.error(data.errmsg);
+              let msg = data.errmsg;
+
+              // 如果服务端校验失败，则返回的是对象，例如{userName:xxxx}
+              if (typeof msg === 'object') {
+                msg = JSON.stringify(msg);
+              }
+
+              message.error(msg);
             } else {
               message.success('登录成功！');
             }

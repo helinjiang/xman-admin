@@ -36,17 +36,17 @@ export default class extends think.logic.base {
     }
 
     this.rules = {
-      username: {
+      userName: {
         required: true,
         minLength: 4
       },
-      password: {
-        required: true,
-        length: [32, 32]
-      },
-      factor: {
-        regexp: /^\d{6}$/
-      }
+      // password: {
+      //   required: true,
+      //   length: [32, 32]
+      // },
+      // factor: {
+      //   regexp: /^\d{6}$/
+      // }
     }
   }
 }
