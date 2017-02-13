@@ -36,7 +36,7 @@ export default class extends Base {
   /**
    * logout
    */
-  async logoutAction(){
+  async logoutAction() {
     await this.session('userInfo', '');
     return this.redirect('/');
   }

@@ -33,11 +33,13 @@ class LayoutSidebar extends Component {
       needInitMenu: false
     };
 
-    // 加载菜单信息
-    this.props.loadMenu();
-
     this.handleCollapseClick = this.handleCollapseClick.bind(this);
     this.handleSelectMenu = this.handleSelectMenu.bind(this);
+  }
+
+  componentDidMount() {
+    // 加载菜单信息
+    this.props.loadMenu();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -177,26 +179,26 @@ class LayoutSidebar extends Component {
       isShowMenu = needInitMenu && menuData && Object.keys(menuData).length;
 
     return (
-        <aside className={classnames({
-          'layout-siderbar': true,
-          'collapse': collapse
-        })}>
+      <aside className={classnames({
+        'layout-siderbar': true,
+        'collapse': collapse
+      })}>
 
         <div className="siderbar-logo"></div>
 
         {
           isShowMenu ? (
-            <Menu mode="inline" theme="dark"
-                  defaultSelectedKeys={defaultSelectedKeys}
-                  defaultOpenKeys={defaultOpenKeys}
-                  onSelect={this.handleSelectMenu}>
-              {
-                menuData.children.map((item) => {
-                  return this.getRenderMenuItem(item)
-                })
-              }
-            </Menu>
-          ) : null
+              <Menu mode="inline" theme="dark"
+                    defaultSelectedKeys={defaultSelectedKeys}
+                    defaultOpenKeys={defaultOpenKeys}
+                    onSelect={this.handleSelectMenu}>
+                {
+                  menuData.children.map((item) => {
+                    return this.getRenderMenuItem(item)
+                  })
+                }
+              </Menu>
+            ) : null
         }
 
         <div className="sidebar-action" onClick={this.handleCollapseClick}>

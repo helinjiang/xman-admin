@@ -9,7 +9,15 @@ export default function update(state = initialState, action) {
     case LOGIN_REQUEST:
       return state;
     case LOGIN_REQUEST_SUCCESS:
-      return Object.assign({}, state, action.data);
+      if (action.data.errno) {
+        return Object.assign({}, state, {
+          isLogin: false
+        });
+      } else {
+        return Object.assign({}, state, action.data, {
+          isLogin: true
+        });
+      }
     case LOGIN_REQUEST_FAIL:
       return Object.assign({}, state, {
         isLogin: false
