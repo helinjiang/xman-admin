@@ -16,21 +16,31 @@ export default class extends Base {
    */
   async loginAction() {
     let {userName, password} = this.post();
-    console.log(userName, password);
 
-    //校验帐号和密码
-    let userModel = this.model('admin');
+    // 通过用户名获取用户信息
+    let userModel = this.model('user');
     let userInfo = await userModel.where({name: userName}).find();
     console.log('==', userInfo);
 
-    if(think.isEmpty(userInfo)){
+    // 校验是否存在这个用户信息
+    if (think.isEmpty(userInfo)) {
+      return this.fail('ACCOUNT_ERROR');
+    }
+
+    // 检测帐号是否被禁用
+    if ((userInfo.status | 0) !== 1) {
+      return this.fail('ACCOUNT_FORBIDDEN');
+    }
+
+    //校验密码
+    if(!userModel.checkPassword(userInfo, password)){
       return this.fail('ACCOUNT_ERROR');
     }
 
     // 如果登录成功，则将登录信息存于 session 中
-    // await this.session('userInfo', {name: userName});
+    //  await this.session('userInfo', userInfo);
 
-    return this.success({name: userName, password: password,userInfo:userInfo});
+    return this.success({name: userName});
   }
 
   /**

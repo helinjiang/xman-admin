@@ -5,9 +5,9 @@
 
 
 ```sql
-DROP TABLE IF EXISTS `x_admin`;
+DROP TABLE IF EXISTS `x_user`;
 
-CREATE TABLE `x_admin` (
+CREATE TABLE `x_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
