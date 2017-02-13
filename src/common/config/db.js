@@ -13,7 +13,7 @@ export default {
             port: '',
             database: 'xman',
             user: 'root',
-            password: 'root',
+            password: '',
             prefix: 'x_',
             encoding: 'utf8'
         },

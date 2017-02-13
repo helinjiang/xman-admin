@@ -3,7 +3,7 @@ import './index.less'
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
-import {Form, Icon, Input, Button} from 'antd';
+import {message, Form, Icon, Input, Button} from 'antd';
 const FormItem = Form.Item;
 
 import {loadLogin} from '../../actions/login'
@@ -24,8 +24,17 @@ class PageLogin extends Component {
 
         this.props.loadLogin(values.userName, values.password)
           .then((data) => {
-            console.log('loadLogin then data', data)
-            // 这个时候reload页面
+            console.log('loadLogin then data', data);
+            data=data.data;
+            if (data.errno) {
+              // 错误，展示 data.errmsg
+              message.error(data.errmsg);
+            } else {
+              message.success('登录成功，即将跳转...');
+              setTimeout(() => {
+                // 这个时候reload页面
+              }, 1000);
+            }
           })
           .catch((data) => {
             console.log('loadLogin catch data', data)
