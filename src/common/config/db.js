@@ -11,10 +11,10 @@ export default {
         mysql: {
             host: '127.0.0.1',
             port: '',
-            database: 'firekylin',
+            database: 'xman',
             user: 'root',
             password: 'root',
-            prefix: 'fk_',
+            prefix: 'x_',
             encoding: 'utf8'
         },
         mongo: {

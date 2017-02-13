@@ -1,6 +1,9 @@
 与 MySQL 相关的实现
 ===
 
+数据库配置在 `/src/common/config/db.js` 中修改。
+
+
 ```sql
 DROP TABLE IF EXISTS `x_admin`;
 
