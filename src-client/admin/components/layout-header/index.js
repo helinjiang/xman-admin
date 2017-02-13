@@ -13,7 +13,7 @@ class LayoutHeader extends Component {
     return (
       <div className="layout-header">
         <h2>欢迎 {this.props.user.name}</h2>
-        <a href="#">退出</a>
+        <a href="/admin/login/logout">退出</a>
       </div>
     );
   }

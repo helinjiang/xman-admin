@@ -33,12 +33,12 @@ export default class extends Base {
     }
 
     //校验密码
-    if(!userModel.checkPassword(userInfo, password)){
+    if (!userModel.checkPassword(userInfo, password)) {
       return this.fail('ACCOUNT_ERROR');
     }
 
     // 如果登录成功，则将登录信息存于 session 中
-    //  await this.session('userInfo', userInfo);
+    await this.session('userInfo', userInfo);
 
     return this.success({name: userName});
   }
@@ -48,6 +48,6 @@ export default class extends Base {
    */
   async logoutAction() {
     await this.session('userInfo', '');
-    return this.redirect('/');
+    return this.redirect('/admin/');
   }
 }
