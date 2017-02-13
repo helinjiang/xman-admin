@@ -3,6 +3,7 @@ import './index.less'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'babel-polyfill';
+
 import {createHistory} from 'history';
 import {useRouterHistory} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
