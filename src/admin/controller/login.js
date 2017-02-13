@@ -16,7 +16,7 @@ export default class extends Base {
     console.log(userName, password);
 
     // 如果登录成功，则将登录信息存于 session 中
-    await this.session('userInfo', {name: userName});
+    // await this.session('userInfo', {name: userName});
 
     return this.success({name: userName, password: password});
   }

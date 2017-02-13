@@ -1,8 +1,13 @@
 import './index.less';
 
 import React, {PropTypes, Component} from 'react';
+import {connect} from 'react-redux'
+
+import classnames from 'classnames';
 
 import {Menu, Icon} from 'antd';
+
+import {collapseSidebar, unCollapseSidebar, loadMenu} from '../../actions/sidebar'
 
 class LayoutSidebar extends Component {
 
@@ -11,7 +16,8 @@ class LayoutSidebar extends Component {
     menuDataMap: PropTypes.object.isRequired,
     collapse: PropTypes.bool.isRequired,
     collapseSidebar: PropTypes.func.isRequired,
-    unCollapseSidebar: PropTypes.func.isRequired
+    unCollapseSidebar: PropTypes.func.isRequired,
+    loadMenu: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -26,6 +32,9 @@ class LayoutSidebar extends Component {
       defaultOpenKeys: [],
       needInitMenu: false
     };
+
+    // 加载菜单信息
+    this.props.loadMenu();
 
     this.handleCollapseClick = this.handleCollapseClick.bind(this);
     this.handleSelectMenu = this.handleSelectMenu.bind(this);
@@ -168,7 +177,10 @@ class LayoutSidebar extends Component {
       isShowMenu = needInitMenu && menuData && Object.keys(menuData).length;
 
     return (
-      <aside className="layout-siderbar">
+        <aside className={classnames({
+          'layout-siderbar': true,
+          'collapse': collapse
+        })}>
 
         <div className="siderbar-logo"></div>
 
@@ -196,4 +208,12 @@ class LayoutSidebar extends Component {
   }
 }
 
-export default LayoutSidebar;
+const mapStateToProps = (state) => ({
+  collapse: state.sidebar.collapse,
+  menuData: state.sidebar.menuData,
+  menuDataMap: state.sidebar.menuDataMap,
+});
+
+const mapDispatchToProps = {collapseSidebar, unCollapseSidebar, loadMenu};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LayoutSidebar);

@@ -8,8 +8,6 @@ export default class extends Base {
    * @return {Promise} []
    */
   indexAction() {
-    //auto render template file index_index.html
-    console.log('-index indexAction-');
     return this.displayAdminPage();
   }
 }
