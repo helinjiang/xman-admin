@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 
 import {increase, decrease} from './actions/count'
 
+import {Row, Col, Button, Card} from 'antd';
+
 class PageTestCounter extends Component {
   static propTypes = {
     number: PropTypes.number.isRequired,
@@ -31,19 +33,29 @@ class PageTestCounter extends Component {
     return (
       <div className="page-test-counter-content">
         <h2>使用 Redux 实现计数器</h2>
-        <p>参考：</p>
-        <ul>
-          <li>https://github.com/reactjs/redux/tree/master/examples/counter</li>
-          <li>https://github.com/reactjs/react-router-redux/tree/master/examples/basic</li>
-        </ul>
 
-        <hr/>
+        <Row>
+          <Col md={6}>
+            <Button onClick={this.handleIncreaseClick}  type="primary">Increase</Button>
+            <Button onClick={this.handleDecreaseClick}>Decrease</Button>
+          </Col>
+          <Col md={6}>
+            <Card title="Result" style={{width: 300}}>
+              <p>Some state changes: {number}</p>
+            </Card>
+          </Col>
+        </Row>
 
-        <div>
-          Some state changes: {number}
-          <button onClick={this.handleIncreaseClick}>Increase</button>
-          <button onClick={this.handleDecreaseClick}>Decrease</button>
-        </div>
+        <Row>
+          <Col md={12}>
+            <p>参考：</p>
+            <ul>
+              <li>https://github.com/reactjs/redux/tree/master/examples/counter</li>
+              <li>https://github.com/reactjs/react-router-redux/tree/master/examples/basic</li>
+            </ul>
+          </Col>
+        </Row>
+
       </div>
     );
   }

@@ -13,7 +13,8 @@ npm run webpack
 npm start
 ```
 
-启动完成后，在浏览器里输入 `http://localhost:8360/` 即可访问首页。
+首页地址：`http://localhost:8360/`。
+管理页面地址：`http://localhost:8360/admin`，登录的用户名为 `admin`
 
 
 ## 备注

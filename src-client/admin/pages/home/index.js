@@ -8,7 +8,13 @@ class PageHome extends Component {
   render() {
     return (
       <div className="page-home-content">
-        <h2>HELLO, home</h2>
+        <h1>HELLO, home</h1>
+        <p>这里是首页</p>
+
+        <h2>列表</h2>
+        <ul>
+          <li><a href="./test/counter">计数器示例</a>，展示简单的 React + redux + Ant.Design 的用法。</li>
+        </ul>
       </div>
     );
   }
