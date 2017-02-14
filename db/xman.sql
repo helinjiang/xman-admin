@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-02-14 11:28:27
+Date: 2017-02-14 17:44:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `x_customer`;
 CREATE TABLE `x_customer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '姓名',
-  `sex` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0未知 1男 2女',
+  `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0未知 1男 2女',
   `telephone` char(11) DEFAULT '' COMMENT '电话号码',
   `email` varchar(255) NOT NULL DEFAULT '',
   `birthday` date DEFAULT NULL,
@@ -34,11 +34,13 @@ CREATE TABLE `x_customer` (
   `last_modify_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of x_customer
 -- ----------------------------
+INSERT INTO `x_customer` VALUES ('1', '何好帅', '0', '', 'onehlj@qq.com', '2017-02-14', '', '', '1', 'sssss', '2017-02-14 13:06:17', '2017-02-14 13:06:19');
+INSERT INTO `x_customer` VALUES ('2', '至尊宝', '0', '', 'a@a.com', '2017-02-14', '', '', '1', 'aaaaa', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for x_user
