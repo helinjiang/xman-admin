@@ -6,6 +6,8 @@ import App from './containers/app';
 import PageDashboard from './pages/dashboard';
 import PageHome from './pages/home';
 
+import PageCustomer from './pages/customer';
+
 import PageTestContainer from './pages/test/container';
 import PageTestIndex from './pages/test';
 import PageTestCounter from './pages/test-counter';
@@ -15,6 +17,7 @@ export default <Route path="/" component={App}>
   <IndexRedirect to="index"/>
   <Route path="index" component={PageHome}/>
   <Route path="dashboard" component={PageDashboard}/>
+  <Route path="customer" component={PageCustomer}/>
   <Route path="test" component={PageTestContainer}>
     <IndexRedirect to="index"/>
     <Route path="index" component={PageTestIndex}/>

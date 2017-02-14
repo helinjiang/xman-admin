@@ -34,6 +34,12 @@ export function loadMenu() {
           title: 'DashBoard'
         },
         {
+          id: 'customer',
+          url: '/customer',
+          icon: 'user',
+          title: 'Customer'
+        },
+        {
           id: 'test',
           url: '/test',
           icon: 'appstore',
