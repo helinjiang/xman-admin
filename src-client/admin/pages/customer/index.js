@@ -46,7 +46,7 @@ class PageCustomer extends Component {
 
     this.state = {
       data: [],
-      pagination: {},
+      pagination: {showTotal: total => `共计 ${total} 项记录`},
       loading: false
     }
   }
@@ -88,8 +88,8 @@ class PageCustomer extends Component {
     }).then((data) => {
       const pagination = this.state.pagination;
       // Read total count from server
-      // pagination.total = data.totalCount;
-      pagination.total = 200;
+      pagination.total = data.totalCount;
+      // pagination.total = 200;
 
       this.setState({
         loading: false,
