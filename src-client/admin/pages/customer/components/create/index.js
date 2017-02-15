@@ -1,6 +1,7 @@
 import './index.less'
 
 import React, {PropTypes, Component} from 'react';
+import reqwest from 'reqwest';
 
 import {Link} from 'react-router'
 
@@ -11,6 +12,11 @@ const Option = Select.Option;
 class PageCustomerCreate extends Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      loading: false
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -24,8 +30,27 @@ class PageCustomerCreate extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        this.save(values);
       }
     });
+  }
+
+  save(params = {}) {
+    console.log('save params:', params);
+
+    this.setState({loading: true});
+
+    reqwest({
+      url: '/admin/api/customer',
+      method: 'post',
+      data: {
+        ...params,
+      },
+      type: 'json',
+    })
+      .then((data) => {
+        console.log('save-then-data', data);
+      });
   }
 
   render() {

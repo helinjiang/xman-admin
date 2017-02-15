@@ -21,8 +21,25 @@ export default class extends Base {
       result = await this.modelInstance.select();
     }
 
-    console.log('-=-=-=', result);
+    // console.log('-=-=-=', result);
 
     return this.success(result);
+  }
+
+  /**
+   * add
+   * @return {[type]} [description]
+   */
+  async postAction(){
+    let data = this.post();
+
+    return this.success(data);
+    //
+    // let ret = await this.modelInstance.addTag(data);
+    // if(ret.type === 'exist'){
+    //   return this.fail('TAG_EXIST');
+    // }
+    //
+    // return this.success({id: ret.id});
   }
 }
