@@ -116,4 +116,6 @@ class PageCustomer extends Component {
   }
 }
 
-export default PageCustomer;
+// export default PageCustomer;
+
+module.exports = PageCustomer;

@@ -33,7 +33,6 @@ const history = syncHistoryWithStore(browserHistoryByCreate, store);
 // ===================================================================
 // 3. 创建 routes
 // ===================================================================
-
 const rootRoute = {
   childRoutes: [{
     path: '/',
@@ -43,7 +42,8 @@ const rootRoute = {
     },
     childRoutes: [
       require('./pages/dashboard'),
-      require('./pages/home')
+      require('./pages/home'),
+      require('./pages/customer')
     ]
   }]
 };

@@ -15,10 +15,10 @@ module.exports = {
     })
   },
 
-  // indexRoute: {
-  //   onEnter(nextState, replace) {
-  //     return replace({pathname: '/tag/list'});
-  //   }
-  // },
+  indexRoute: {
+    onEnter(nextState, replace) {
+      return replace({pathname: '/customer/list'});
+    }
+  },
 
 };
