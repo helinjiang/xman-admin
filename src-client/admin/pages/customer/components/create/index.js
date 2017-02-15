@@ -4,6 +4,7 @@ import React, {PropTypes, Component} from 'react';
 import reqwest from 'reqwest';
 
 import {Link} from 'react-router'
+import { withRouter } from 'react-router'
 
 import {message, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button} from 'antd';
 const FormItem = Form.Item;
@@ -54,7 +55,9 @@ class PageCustomerCreate extends Component {
         message.success('新增成功！' + data);
 
         // 返回列表页
-
+        // open('/admin/customer')
+        // this.context.router.goBack();
+        this.props.router.goBack();
       });
   }
 
@@ -151,4 +154,5 @@ PageCustomerCreate = Form.create({})(PageCustomerCreate);
 
 // export default PageCustomerCreate;
 
-module.exports = PageCustomerCreate;
+// module.exports = PageCustomerCreate;
+module.exports = withRouter(PageCustomerCreate);
