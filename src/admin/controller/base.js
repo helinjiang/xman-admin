@@ -51,6 +51,10 @@ export default class extends think.controller.base {
    * call magic method
    * @return {} []
    */
+  async __call() {
+    return await this.displayAdminPage();
+  }
+
   // async __call() {
   //   console.log('--__call--');
   //   if (this.isAjax()) {
