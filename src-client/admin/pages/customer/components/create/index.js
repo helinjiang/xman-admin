@@ -5,7 +5,7 @@ import reqwest from 'reqwest';
 
 import {Link} from 'react-router'
 
-import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button} from 'antd';
+import {message, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -50,6 +50,11 @@ class PageCustomerCreate extends Component {
     })
       .then((data) => {
         console.log('save-then-data', data);
+
+        message.success('新增成功！' + data);
+
+        // 返回列表页
+
       });
   }
 
@@ -98,8 +103,9 @@ class PageCustomerCreate extends Component {
               rules: [{
                 required: true, message: '请输入姓名!'
               }],
+              initialValue: 'tee'
             })(
-              <Input/>
+              <Input />
             )}
           </FormItem>
 
@@ -114,6 +120,7 @@ class PageCustomerCreate extends Component {
               }, {
                 required: true, message: 'Please input your E-mail!',
               }],
+              initialValue: 'a@b.com'
             })(
               <Input />
             )}
@@ -124,6 +131,7 @@ class PageCustomerCreate extends Component {
           >
             {getFieldDecorator('phone', {
               rules: [{required: true, message: 'Please input your phone number!'}],
+              initialValue: '111'
             })(
               <Input addonBefore={prefixSelector}/>
             )}
