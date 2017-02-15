@@ -4,7 +4,8 @@ module.exports = {
   getChildRoutes(partialNextState, cb) {
     require.ensure([], (require) => {
       cb(null, [
-        require('./list')
+        require('./list'),
+        require('./add'),
       ]);
     })
   },

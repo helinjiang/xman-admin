@@ -3,7 +3,8 @@ import './index.less'
 import React, {PropTypes, Component} from 'react';
 import reqwest from 'reqwest';
 
-import {Table} from 'antd';
+import {Link} from 'react-router'
+import {Table, Button} from 'antd';
 
 const columns = [{
   title: 'Name',
@@ -104,6 +105,7 @@ class PageCustomer extends Component {
     return (
       <div className="page-customer-content">
         <h2>HELLO, customer</h2>
+        <Button type="primary"><Link to="/customer/add">新增</Link></Button>
         <Table columns={columns}
                rowKey={record => record.email}
                dataSource={this.state.data}
