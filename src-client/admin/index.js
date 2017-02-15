@@ -38,6 +38,9 @@ const rootRoute = {
   childRoutes: [{
     path: '/',
     component: require('./containers/app'),
+    indexRedirect: {
+      to: 'index'
+    },
     childRoutes: [
       require('./pages/dashboard'),
       require('./pages/home')

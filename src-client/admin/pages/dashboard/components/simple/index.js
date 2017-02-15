@@ -16,4 +16,4 @@ class PageDashboard extends Component {
 
 // export default PageDashboard;
 
-module.exports = PageDashboard
+module.exports = PageDashboard;

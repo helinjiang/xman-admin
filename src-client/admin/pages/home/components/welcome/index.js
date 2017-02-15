@@ -20,4 +20,5 @@ class PageHome extends Component {
   }
 }
 
-export default PageHome;
+// export default PageHome;
+module.exports = PageHome;
