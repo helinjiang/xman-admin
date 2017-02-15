@@ -31,9 +31,24 @@ const browserHistoryByCreate = useRouterHistory(createHistory)({
 const history = syncHistoryWithStore(browserHistoryByCreate, store);
 
 // ===================================================================
+// 3. 创建 routes
+// ===================================================================
+
+const rootRoute = {
+  childRoutes: [{
+    path: '/',
+    component: require('./containers/app'),
+    childRoutes: [
+      require('./pages/dashboard'),
+      require('./pages/home')
+    ]
+  }]
+};
+
+// ===================================================================
 // 3. ReactDOM 渲染
 // ===================================================================
 ReactDOM.render(
-  <Root store={store} history={history}/>,
+  <Root store={store} history={history} routes={rootRoute}/>,
   document.getElementById('app')
 );

@@ -1,9 +1,8 @@
 import React, {PropTypes} from 'react'
 import {Provider} from 'react-redux'
-import routes from '../routes'
 import {Router} from 'react-router'
 
-const Root = ({store, history}) => (
+const Root = ({store, history, routes}) => (
   <Provider store={store}>
     <Router history={history} routes={routes}/>
   </Provider>
@@ -11,7 +10,8 @@ const Root = ({store, history}) => (
 
 Root.propTypes = {
   store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  routes: PropTypes.object.isRequired
 };
 
 export default Root;

@@ -1,8 +1,8 @@
 module.exports = {
-  path: 'home',
+  path: 'list',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
-      cb(null, require('./components/welcome'));
+      cb(null, require('./components/list'));
     })
   }
 };

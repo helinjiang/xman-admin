@@ -1,17 +1,8 @@
-import React, {PropTypes, Component} from 'react';
-
-class PageDashboard extends Component {
-  constructor(props, context) {
-    super(props, context);
+module.exports = {
+  path: 'dashboard',
+  getComponent(nextState, cb) {
+    require.ensure([], (require) => {
+      cb(null, require('./components/simple'));
+    })
   }
-
-  render() {
-    return (
-      <div className="page-dashboard-content">
-        <h2>HELLO, dashboard</h2>
-      </div>
-    );
-  }
-}
-
-export default PageDashboard;
+};

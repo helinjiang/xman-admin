@@ -60,4 +60,6 @@ const mapStateToProps = (state) => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(App);
+// export default connect(mapStateToProps)(App);
+
+module.exports = connect(mapStateToProps)(App)

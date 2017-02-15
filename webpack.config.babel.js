@@ -2,10 +2,13 @@ import path from 'path';
 import webpack from 'webpack';
 
 // 源代码的根目录
-let srcRootPath = path.join(__dirname, 'src-client');
+const srcRootPath = path.join(__dirname, 'src-client');
+
+// 静态资源根目录
+const wwwStaticRoot = 'static';
 
 // 编译后的根目录
-let distRootPath = path.join(__dirname, 'www/static');
+const distRootPath = path.join(__dirname, 'www', wwwStaticRoot);
 
 export default {
   devtool: 'source-map',
@@ -25,7 +28,9 @@ export default {
   },
   output: {
     path: `${distRootPath}/js`,
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+    chunkFilename: '[id].chunk.js',
+    publicPath: `/${wwwStaticRoot}/js/`
   },
   externals: {jquery: "jQuery"},
   resolve: {
